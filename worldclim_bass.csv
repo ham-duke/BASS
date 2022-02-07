@@ -1,0 +1,541 @@
+system:index,Plot_Name,bio01,bio02,bio03,bio04,bio05,bio06,bio07,bio08,bio09,bio10,bio11,bio12,bio13,bio14,bio15,bio16,bio17,bio18,bio19,date_range,description,keywords,period,product_tags,provider,provider_url,sample,source_tags,tags,thumb,title,type_name,visualization_0_bands,visualization_0_max,visualization_0_min,visualization_0_name,visualization_0_palette,.geo
+0_00000000000000000000,DF 1A,236.18181818181822,90.0,75.0,1033.090909090909,297.3636363636364,178.18181818181816,119.18181818181819,238.18181818181822,220.1818181818182,246.1818181818182,220.1818181818182,1655.7272727272727,303.0,12.0,61.0,670.8181818181819,89.81818181818181,595.4545454545455,89.81818181818181,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.791349751042029,0.5042630993669002],[12.793137777456302,0.5042630993669002],[12.793137777456302,0.5060625267379495],[12.791349751042029,0.5060625267379495],[12.791349751042029,0.5042630993669002]]]}"
+0_00000000000000000001,DF 1B,237.0,90.0,75.0,1038.0,299.0,179.0,120.0,239.0,221.0,247.0,221.0,1650.0,303.0,12.0,61.0,670.0,89.0,593.0,89.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.789142496193039,0.5030056328698285],[12.790930522261757,0.5030056328698285],[12.790930522261757,0.5048050602408777],[12.789142496193039,0.5048050602408777],[12.789142496193039,0.5030056328698285]]]}"
+0_00000000000000000002,DF2A,238.0,90.0,75.0,997.2727272727273,298.4545454545455,179.0,119.45454545454544,239.0,222.0,246.45454545454544,222.0,1646.090909090909,301.0,11.0,61.0,667.0,85.0,591.0909090909091,85.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.753242280592204,0.4491709058515814],[12.755030292674855,0.4491709058515814],[12.755030292674855,0.4509703332226254],[12.753242280592204,0.4509703332226254],[12.753242280592204,0.4491709058515814]]]}"
+0_00000000000000000003,DF2B,238.0,90.0,75.0,985.0,298.0,179.0,119.0,239.0,222.0,246.0,222.0,1647.0,301.0,11.0,61.0,667.0,85.0,592.0,85.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.752078455060456,0.45045066785392035],[12.753866467457264,0.45045066785392035],[12.753866467457264,0.45225009522496434],[12.752078455060456,0.45225009522496434],[12.752078455060456,0.45045066785392035]]]}"
+0_00000000000000000004,DF 3A,240.0,90.0,75.0,1032.0,301.0,181.0,120.0,241.0,224.0,249.0,224.0,1633.0,298.0,10.0,61.0,662.0,80.0,585.0,80.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.736337833472868,0.4064883905680016],[12.738125835588788,0.4064883905680016],[12.738125835588788,0.40828781793904156],[12.736337833472868,0.40828781793904156],[12.736337833472868,0.4064883905680016]]]}"
+0_00000000000000000005,DF 3B,240.0,90.0,75.0,994.1818181818182,301.0,181.72727272727275,119.27272727272727,241.0,224.72727272727272,249.0,224.72727272727272,1632.2727272727273,298.0,10.0,61.0,662.0,80.72727272727273,585.0,80.72727272727273,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.73540142211119,0.4077547752671801],[12.737189424508536,0.4077547752671801],[12.737189424508536,0.40955420263822023],[12.73540142211119,0.40955420263822023],[12.73540142211119,0.4077547752671801]]]}"
+0_00000000000000000006,DF 4A,240.0,90.0,75.0,980.0,301.0,182.0,119.0,241.0,225.0,249.0,225.0,1632.0,298.0,10.0,61.0,662.0,81.0,585.0,81.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.73578044561794,0.40849944514310566],[12.73756844818118,0.40849944514310566],[12.73756844818118,0.4102988725141457],[12.73578044561794,0.4102988725141457],[12.73578044561794,0.40849944514310566]]]}"
+0_00000000000000000007,DF 4B,241.0,91.0,75.0,1013.0909090909091,302.0,182.0,120.0,242.1818181818182,225.0,250.18181818181822,225.0,1624.2727272727273,296.0,9.0,62.0,659.8181818181818,75.0,580.8181818181819,75.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.642549565352015,0.36524170582363114],[12.644337558779322,0.36524170582363114],[12.644337558779322,0.3670411331946672],[12.642549565352015,0.3670411331946672],[12.642549565352015,0.36524170582363114]]]}"
+0_00000000000000000008,DF 5A,240.0,90.0,75.0,1035.0,301.0,181.0,120.0,241.0,224.0,250.0,224.0,1637.0,301.0,11.0,61.0,665.0,86.0,588.0,86.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.805846291811559,0.4800546397477446],[12.80763431172463,0.4800546397477446],[12.80763431172463,0.48185406711879164],[12.805846291811559,0.48185406711879164],[12.805846291811559,0.4800546397477446]]]}"
+0_00000000000000000009,DF 5B,240.0,90.0,75.0,1035.0,301.0,181.0,120.0,241.0,224.0,250.0,224.0,1637.0,301.0,11.0,61.0,665.0,86.0,588.0,86.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.805596582360929,0.47845828157061127],[12.80738460185652,0.47845828157061127],[12.80738460185652,0.4802577089416581],[12.805596582360929,0.4802577089416581],[12.805596582360929,0.47845828157061127]]]}"
+0_0000000000000000000a,DF 6A,238.0,91.0,75.0,994.0,299.0,179.0,120.0,239.0,222.0,247.0,222.0,1643.0,299.0,10.0,62.0,666.0,80.0,587.0,80.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.691840466162548,0.38704225087392596],[12.693628464066675,0.38704225087392596],[12.693628464066675,0.3888416782449641],[12.691840466162548,0.3888416782449641],[12.691840466162548,0.38704225087392596]]]}"
+0_0000000000000000000b,DF 6B,238.0,91.0,75.0,994.0,299.0,179.0,120.0,239.0,222.0,247.0,222.0,1643.0,299.0,10.0,62.0,666.0,80.0,587.0,80.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.692616349588969,0.38852713152472323],[12.694404347807442,0.38852713152472323],[12.694404347807442,0.3903265588957616],[12.692616349588969,0.3903265588957616],[12.692616349588969,0.38852713152472323]]]}"
+0_0000000000000000000c,IF 1A,241.36363636363637,91.0,75.0,984.2727272727274,302.3636363636364,182.36363636363637,120.0,243.1818181818182,226.18181818181822,250.36363636363637,226.18181818181822,1617.0,292.81818181818187,8.0,62.0,655.4545454545455,69.81818181818181,576.2727272727273,69.81818181818181,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.581865665499437,0.2942037669411916],[12.583653646134982,0.2942037669411916],[12.583653646134982,0.2960031943122209],[12.581865665499437,0.2960031943122209],[12.581865665499437,0.2942037669411916]]]}"
+0_0000000000000000000d,IF 1B,243.0,91.0,75.0,999.0,304.0,184.0,120.0,244.0,227.0,252.0,227.0,1608.0,292.0,8.0,62.0,653.0,69.0,573.0,69.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.583787537855951,0.2966562725205866],[12.585575518887309,0.2966562725205866],[12.585575518887309,0.2984556998916161],[12.583787537855951,0.2984556998916161],[12.583787537855951,0.2966562725205866]]]}"
+0_0000000000000000000e,IF 2A,240.0,91.0,75.0,989.0,301.0,181.0,120.0,242.0,224.0,249.0,224.0,1623.0,294.0,8.0,62.0,659.0,70.0,579.0,70.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.58001513726005,0.3100157392767091],[12.581803120505032,0.3100157392767091],[12.581803120505032,0.3118151666477399],[12.58001513726005,0.3118151666477399],[12.58001513726005,0.3100157392767091]]]}"
+0_0000000000000000000f,IF 2B,240.0,91.0,75.0,989.0,301.0,181.0,120.0,242.0,224.0,249.0,224.0,1623.0,294.0,8.0,62.0,659.0,70.0,579.0,70.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.579863527948664,0.30853977682801875],[12.581651510944305,0.30853977682801875],[12.581651510944305,0.31033920419904937],[12.579863527948664,0.31033920419904937],[12.579863527948664,0.30853977682801875]]]}"
+0_00000000000000000010,IF 3A,241.0,91.0,75.0,998.0,302.0,182.0,120.0,242.0,226.0,250.0,226.0,1618.0,293.0,8.0,63.0,656.0,69.0,577.0,69.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.560497653427342,0.2920009710207894],[12.562285633710173,0.2920009710207894],[12.562285633710173,0.2938003983918186],[12.560497653427342,0.2938003983918186],[12.560497653427342,0.2920009710207894]]]}"
+0_00000000000000000011,IF 3B,241.0,91.0,75.0,998.0,302.0,182.0,120.0,242.0,226.0,250.0,226.0,1618.0,293.0,8.0,63.0,656.0,69.0,577.0,69.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.559097495706856,0.2918716570902396],[12.56088547596906,0.2918716570902396],[12.56088547596906,0.29367108446126866],[12.559097495706856,0.29367108446126866],[12.559097495706856,0.2918716570902396]]]}"
+0_00000000000000000012,IF 4A,241.0,91.0,75.0,1002.0,302.0,182.0,120.0,242.0,225.0,250.0,225.0,1620.0,293.0,8.0,62.0,656.0,70.0,578.0,70.0,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.61485855488553,0.28545055157327814],[12.616646534135102,0.28545055157327814],[12.616646534135102,0.2872499789443066],[12.61485855488553,0.2872499789443066],[12.61485855488553,0.28545055157327814]]]}"
+0_00000000000000000013,IF 4B,240.10000000000002,91.0,75.0,1022.7,301.09999999999997,180.2,120.9,241.1,224.10000000000002,249.10000000000002,224.10000000000002,1627.2,293.9,8.0,62.0,657.8000000000001,70.89999999999999,580.6999999999999,70.89999999999999,"[-3.156192E11, 6.62688E11]","<p>WorldClim V1 Bioclim provides bioclimatic variables that are derived from
+the monthly temperature and rainfall in order to generate more biologically
+meaningful values.</p><p>The bioclimatic variables represent annual trends (e.g., mean annual
+temperature, annual precipitation), seasonality (e.g., annual range in
+temperature and precipitation), and extreme or limiting environmental
+factors (e.g., temperature of the coldest and warmest month, and
+precipitation of the wet and dry quarters).</p><p>The bands scheme follows that of ANUCLIM, except that for temperature
+seasonality the standard deviation was used because a coefficient of
+variation does not make sense with temperatures between -1 and 1.</p><p>WorldClim version 1 was developed by Robert J. Hijmans, Susan Cameron,
+and Juan Parra, at the Museum of Vertebrate Zoology, University of
+California, Berkeley, in collaboration with Peter Jones and Andrew Jarvis
+(CIAT), and with Karen Richardson (Rainforest CRC).</p><p><b>Provider: <a href=""https://www.worldclim.org/"">University of California, Berkeley</a></b><br><p><b>Resolution</b><br>927.67 meters
+</p><p><b>Bands</b><table class=""eecat""><tr><th scope=""col"">Name</th><th scope=""col"">Description</th></tr><tr><td>bio01</td><td><p>Annual mean temperature</p></td></tr><tr><td>bio02</td><td><p>Mean diurnal range (mean of monthly (max temp - min temp))</p></td></tr><tr><td>bio03</td><td><p>Isothermality (bio02/bio07)</p></td></tr><tr><td>bio04</td><td><p>Temperature seasonality (Standard deviation * 100)</p></td></tr><tr><td>bio05</td><td><p>Max temperature of warmest month</p></td></tr><tr><td>bio06</td><td><p>Min temperature of coldest month</p></td></tr><tr><td>bio07</td><td><p>Temperature annual range (bio05-bio06)</p></td></tr><tr><td>bio08</td><td><p>Mean temperature of wettest quarter</p></td></tr><tr><td>bio09</td><td><p>Mean temperature of driest quarter</p></td></tr><tr><td>bio10</td><td><p>Mean temperature of warmest quarter</p></td></tr><tr><td>bio11</td><td><p>Mean temperature of coldest quarter</p></td></tr><tr><td>bio12</td><td><p>Annual precipitation</p></td></tr><tr><td>bio13</td><td><p>Precipitation of wettest month</p></td></tr><tr><td>bio14</td><td><p>Precipitation of driest month</p></td></tr><tr><td>bio15</td><td><p>Precipitation seasonality</p></td></tr><tr><td>bio16</td><td><p>Precipitation of wettest quarter</p></td></tr><tr><td>bio17</td><td><p>Precipitation of driest quarter</p></td></tr><tr><td>bio18</td><td><p>Precipitation of warmest quarter</p></td></tr><tr><td>bio19</td><td><p>Precipitation of coldest quarter</p></td></tr></table><p><b>Terms of Use</b><br><p>Licensed under the Creative Commons Attribution Share Alike 4.0 International License.</p><p><b>Suggested citation(s)</b><ul><li><p>Hijmans, R.J., S.E. Cameron, J.L. Parra, P.G. Jones and A. Jarvis,
+2005. Very High Resolution Interpolated Climate Surfaces for Global Land
+Areas. International Journal of Climatology 25: 1965-1978.
+<a href=""https://doi.org/10.1002/joc.1276"">doi:10.1002/joc.1276</a>.</p></li></ul><style>
+  table.eecat {
+  border: 1px solid black;
+  border-collapse: collapse;
+  font-size: 13px;
+  }
+  table.eecat td, tr, th {
+  text-align: left; vertical-align: top;
+  border: 1px solid gray; padding: 3px;
+  }
+  td.nobreak { white-space: nowrap; }
+</style>","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",0.0,"[worldclim, weather, monthly, climate, temperature, precipitation, bioclim, temperature, precipitation, diurnal, warmest, coldest, wettest, driest, seasonality, isothermality]","University of California, Berkeley",https://www.worldclim.org/,https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_sample.png,"[ucb, berkeley]","[berkeley, bioclim, climate, coldest, diurnal, driest, isothermality, monthly, precipitation, seasonality, temperature, ucb, warmest, weather, wettest, worldclim]",https://mw1.google.com/ges/dd/images/WORLDCLIM_V1_BIO_thumb.png,WorldClim BIO Variables V1,Image,bio01,300.0,-230.0,Annual Mean Temperature,"blue,purple,cyan,green,yellow,red","{""geodesic"":false,""type"":""Polygon"",""coordinates"":[[[12.616374649221132,0.2857403931417521],[12.618162628515927,0.2857403931417521],[12.618162628515927,0.2875398205127806],[12.616374649221132,0.2875398205127806],[12.616374649221132,0.2857403931417521]]]}"

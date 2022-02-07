@@ -1,0 +1,630 @@
+---
+title: "Distribution of Biomass Among Species per Plot"
+author: "Aubrey Knier"
+date: "11/2/2021"
+output: pdf_document
+classoption: portrait
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, fig_width=8, fig_height=5, fig.align="center")
+setwd("/Users/aubreyknier/Desktop/Fall2021/BassConnections")
+library(ggplot2)
+library(dplyr)
+```
+The % biomass held by the highest 10% of families (in terms of biomass) across all plots is printed for the Total ABG per Plot figure below. The following figures are at the plot level and print the % biomass held by the highest 10% of species (in terms of biomass) for that plot.
+```{r read data, include=F}
+tdat_read <- read.csv("tdat_bass.csv")
+tdat <- na.omit(tdat_read)
+species_agb <- with(tdat_read , aggregate(AGBtree, list(Species=Species, NewCode=NewCode), sum))
+
+```
+
+```{r all plots, eval=T, echo=F, fig.width=8, fig.height=6}
+#AGB vs family
+ggplot(tdat_read, aes(x=NewCode, y=AGBtree, fill=Famille)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("Total AGB per Plot") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+        xlab("Plot") +
+        theme(legend.position="bottom") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+
+
+# top 10% of families in all plots
+tdat_fam <- with(tdat_read , aggregate(AGBtree, list(Famille=Famille), sum))
+tdat_fam <- tdat_fam %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+tdat_fam <- tdat_fam[order(tdat_fam$x, decreasing=T),]
+
+
+topData <- tdat_fam %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Famille[i])
+  print(topData$perc[i])
+}
+
+# top 10% of species in all plots
+tdat_spp <- with(tdat_read , aggregate(AGBtree, list(Species=Species), sum))
+tdat_spp <- tdat_spp %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+tdat_spp <- tdat_spp[order(tdat_spp$x, decreasing=T),]
+
+write.csv("tdat_spp.csv")
+
+topData <- tdat_spp %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+# # of distinct spp vs family
+spp_count <- tdat %>%                              # Applying group_by & summarise
+  group_by(NewCode, Famille) %>%
+  summarise(count = n_distinct(Species))
+
+ggplot(spp_count, aes(x=NewCode, y=count, fill=Famille)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("Number of Indentified Spp. in Families per Plot") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("# of Species") +
+        xlab("Plot") +
+        theme(legend.position="bottom") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+
+# # number of spp vs abundance
+# abund_count <- tdat %>%                              # Applying group_by & summarise
+#   group_by(Species) %>%
+#   summarise(count = length(Species))
+#  
+# ggplot(abund_count, aes(x=count, y=count)) +
+#   theme_light() +
+#   geom_bar(stat="identity") +
+#       ggtitle("Amount of Indentified Spp. in Families per Plot") +
+#       theme(plot.title=element_text(face="bold")) +
+#         ylab("# of Species") +
+#         xlab("Abundance") +
+#         theme(legend.position="bottom") +
+#           theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+#                theme(axis.text.x=element_text(size=8, face="italic")) +
+#                  theme(legend.key.size = unit(1, 'cm'), #change legend key size
+#                     legend.key.height = unit(.2, 'cm'), #change legend key height
+#                     legend.key.width = unit(.2, 'cm'), #change legend key width
+#                     legend.title = element_text(size=10), #change legend title font size
+#                     legend.text = element_text(size=8)) #change legend text font size
+
+```
+
+```{r 1 DUK_P001, eval=T, echo=F, fig.width=8, fig.height=5}
+
+DUK_P001_data <- subset(species_agb, NewCode %in% "DUK_P001")
+DUK_P001_data <- DUK_P001_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P001_data <- DUK_P001_data[order(DUK_P001_data$x, decreasing=T),]
+
+ 
+ggplot(DUK_P001_data, aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("1. DUK_P001") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=8, face="italic")) 
+                  #geom_text(aes(label = perc))
+  
+topData <- DUK_P001_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+```
+
+```{r 2 DUK_P002, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P002_data <- subset(species_agb, NewCode %in% "DUK_P002")
+DUK_P002_data <- DUK_P002_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P002_data <- DUK_P002_data[order(DUK_P002_data$x, decreasing=T),]
+
+
+ggplot(DUK_P002_data, aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("2. DUK_P002") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P002_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+```
+
+```{r 3 DUK_P003, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P003_data <- subset(species_agb, NewCode %in% "DUK_P003")
+DUK_P003_data <- DUK_P003_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P003_data <- DUK_P003_data[order(DUK_P003_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P003"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("3. DUK_P003") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P003_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+```
+
+```{r 4 DUK_P004, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P004_data <- subset(species_agb, NewCode %in% "DUK_P004")
+DUK_P004_data <- DUK_P004_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P004_data <- DUK_P004_data[order(DUK_P004_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P004"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("4. DUK_P004") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+
+topData <- DUK_P004_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+```
+
+```{r 5 DUK_P005, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P005_data <- subset(species_agb, NewCode %in% "DUK_P005")
+DUK_P005_data <- DUK_P005_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P005_data <- DUK_P005_data[order(DUK_P005_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P005"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("5. DUK_P005") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P005_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 6 DUK_P006, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P006_data <- subset(species_agb, NewCode %in% "DUK_P006")
+DUK_P006_data <- DUK_P006_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P006_data <- DUK_P006_data[order(DUK_P006_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P006"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("6. DUK_P006") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P006_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 7 DUK_P009, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P009_data <- subset(species_agb, NewCode %in% "DUK_P009")
+DUK_P009_data <- DUK_P009_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P009_data <- DUK_P009_data[order(DUK_P009_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P009"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("7. DUK_P009") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P009_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 8 DUK_P011, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P011_data <- subset(species_agb, NewCode %in% "DUK_P011")
+DUK_P011_data <- DUK_P011_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P011_data <- DUK_P011_data[order(DUK_P011_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P011"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("8. DUK_P011") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P011_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 9 DUK_P012, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P012_data <- subset(species_agb, NewCode %in% "DUK_P012")
+DUK_P012_data <- DUK_P012_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P012_data <- DUK_P012_data[order(DUK_P012_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P012"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("9. DUK_P012") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P012_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 10 DUK_P013, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P013_data <- subset(species_agb, NewCode %in% "DUK_P013")
+DUK_P013_data <- DUK_P013_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P013_data <- DUK_P013_data[order(DUK_P013_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P013"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("10. DUK_P013") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P013_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 11 DUK_P014, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P014_data <- subset(species_agb, NewCode %in% "DUK_P014")
+DUK_P014_data <- DUK_P014_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P014_data <- DUK_P014_data[order(DUK_P014_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P014"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("11. DUK_P014") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P014_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 12 DUK_P015, eval=T, echo=F, fig.width=8, fig.height=5}
+DUK_P015_data <- subset(species_agb, NewCode %in% "DUK_P015")
+DUK_P015_data <- DUK_P015_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+DUK_P015_data <- DUK_P015_data[order(DUK_P015_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "DUK_P015"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("12. DUK_P015") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- DUK_P015_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 13 NRI_P067, eval=T, echo=F, fig.width=8, fig.height=5}
+NRI_P067_data <- subset(species_agb, NewCode %in% "NRI_P067")
+NRI_P067_data <- NRI_P067_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+NRI_P067_data <- NRI_P067_data[order(NRI_P067_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "NRI_P067"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("13. NRI_P067") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=7, face="italic"))
+
+topData <- NRI_P067_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 14 NRI_P075, eval=T, echo=F, fig.width=8, fig.height=5}
+NRI_P075_data <- subset(species_agb, NewCode %in% "NRI_P075")
+NRI_P075_data <- NRI_P075_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+NRI_P075_data <- NRI_P075_data[order(NRI_P075_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "NRI_P075"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("14. NRI_P075") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=7, face="italic"))
+
+topData <- NRI_P075_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 15 NRI_P076, eval=T, echo=F, fig.width=8, fig.height=5}
+NRI_P076_data <- subset(species_agb, NewCode %in% "NRI_P076")
+NRI_P076_data <- NRI_P076_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+NRI_P076_data <- NRI_P076_data[order(NRI_P076_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "NRI_P076"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("15. NRI_P076") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=7, face="italic"))
+
+topData <- NRI_P076_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 16 NRI_P087, eval=T, echo=F, fig.width=8, fig.height=5}
+NRI_P087_data <- subset(species_agb, NewCode %in% "NRI_P087")
+NRI_P087_data <- NRI_P087_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+NRI_P087_data <- NRI_P087_data[order(NRI_P087_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "NRI_P087"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("16. NRI_P087") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- NRI_P087_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 17 NRI_P108, eval=T, echo=F, fig.width=8, fig.height=5}
+NRI_P108_data <- subset(species_agb, NewCode %in% "NRI_P108")
+NRI_P108_data <- NRI_P108_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+NRI_P108_data <- NRI_P108_data[order(NRI_P108_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "NRI_P108"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("17. NRI_P108") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- NRI_P108_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 18 NRI_P110, eval=T, echo=F, fig.width=8, fig.height=5}
+NRI_P110_data <- subset(species_agb, NewCode %in% "NRI_P110")
+NRI_P110_data <- NRI_P110_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+NRI_P110_data <- NRI_P110_data[order(NRI_P110_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "NRI_P110"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("18. NRI_P110") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- NRI_P110_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 19 NRI_P112, eval=T, echo=F, fig.width=8, fig.height=5}
+NRI_P112_data <- subset(species_agb, NewCode %in% "NRI_P112")
+NRI_P112_data <- NRI_P112_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+NRI_P112_data <- NRI_P112_data[order(NRI_P112_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "NRI_P112"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("19. NRI_P112") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- NRI_P112_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+
+```{r 20 NRI_P113, eval=T, echo=F, fig.width=8, fig.height=5}
+NRI_P113_data <- subset(species_agb, NewCode %in% "NRI_P113")
+NRI_P113_data <- NRI_P113_data %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+NRI_P113_data <- NRI_P113_data[order(NRI_P113_data$x, decreasing=T),]
+
+
+ggplot(subset(species_agb, NewCode %in% "NRI_P113"), aes(x=Species, y=x, fill=Species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+    ggtitle("20. NRI_P113") + 
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+          theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+            theme(legend.position="none") +
+               theme(axis.text.x=element_text(size=5, face="italic"))
+
+topData <- NRI_P113_data %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(topData)) {
+  print(topData$Species[i])
+  print(topData$perc[i])
+}
+
+
+```
+

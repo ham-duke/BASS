@@ -1,0 +1,153 @@
+---
+title: "BassDummyAnalysis"
+author: "Camille"
+date: "2/7/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#check working directory 
+getwd()
+
+# load packages
+pacman::p_load(ggplot2, knitr, BIOMASS, dplyr, data.table, gdata, 
+               rvest, rlang, purrr, tidyverse, iNEXT)
+
+#load data
+dummy_plots <- read.csv("bass_dummy_data.csv")
+bioclim_data <- read.csv("worldclim_bass.csv")
+
+```
+
+```{r Explore Data}
+dim(dummy_plots)
+colnames(dummy_plots)
+
+#create df for just trees
+dummy_plots_trees <- dummy_plots %>%
+  filter(Type_Field != "Liana")%>%
+  select(Project, Plot, Grid, TAG_SUM, DBH..mm., Height..meters.)%>%
+  mutate(Project2 = Project)%>%
+  unite("Project_Plot", Project:Plot)
+names(dummy_plots_trees)[4]<- "dbh"
+names(dummy_plots_trees)[5]<- "height"
+
+#create liana data
+dummy_plots_liana <- dummy_plots %>%
+  filter(Type_Field == "Liana")%>%
+  select(Project, Plot, Grid, TAG_SUM, DBH..mm., Height..meters.)%>%
+  mutate(Project2 = Project)%>%
+  unite("Project_Plot", Project:Plot)
+names(dummy_plots_liana)[4]<- "dbh"
+names(dummy_plots_liana)[5]<- "height"
+
+#visually explore data
+
+ggplot(data = dummy_plots_trees, aes(x=dbh))+
+  geom_histogram()
+
+ggplot(data = dummy_plots_trees, aes(x=height))+
+  geom_histogram()
+
+summary(dummy_plots_trees)
+
+```
+
+Height models 
+```{r}
+ hplots <- unique(dummy_plots_trees$Project_Plot)
+  output <- list()
+
+Hcalc <- function(ddat, hdat, x){
+  
+   print(x)
+      
+      hmod <- data.frame(modelHD(D = hdat$dbh, H = hdat$height, useWeight = F, method = NULL))
+       min_pick <- min(hmod$RSE, na.rm = T)
+        bm <- hmod$method[hmod$RSE == min_pick]
+         best_mod <- modelHD(D = hdat$DBH, H = hdat$mHt, useWeight = F, method = bm) 
+          predHt <- retrieveH(D = ddat$D, model = best_mod)
+
+       list(rsq = best_mod$R.squared, rse = best_mod$RSE, mod = best_mod$method, 
+                           H = predHt$H, dat = ddat)
+}
+
+all_hts <- lapply(1:length(unique(dummy_plots_trees$Project_Plot)), function(x) output[[x]] = Hcalc(ddat = 
+                                                    dummy_plots_trees[dummy_plots_trees$Project_Plot == hplots[[x]], ], 
+                                                    hdat = dummy_plots_trees[dummy_plots_trees$Project_Plot == hplots[[x]],], 
+                                                    x))
+ 
+rsq <- unlist(lapply(all_hts, `[[`, "rsq"))
+rse <- unlist(lapply(all_hts, `[[`, "rse"))
+mod <- unlist(lapply(all_hts, `[[`, "mod"))
+hts <- unlist(lapply(all_hts, `[[`, "H"))
+data <- unlist(lapply(all_hts, `[[`, "dat"))
+
+dummy_plots_trees2 <- data.frame(do.call("rbind", (lapply(all_hts, `[[`, "dat"))))
+dummy_plots_trees2$H <- hts
+
+```
+
+Structure (Abundance and Size Classes)
+```{r}
+plot_abundance <- dummy_plots_trees %>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise(abundance = n(),
+                   mean_dbh = mean(dbh))
+
+```
+
+AGB Analysis
+```{r}
+#get wood density
+WdDen <- getWoodDensity(genus = dummy_plots_trees$Genus,
+          species = dummy_plots_trees$Spp,
+          family= dummy_plots_trees$Famille,
+          stand = dummy_plots_trees$Project_Plot)
+
+dummy_plots_trees$meanWD <- WdDen$meanWD
+dummy_plots_trees$sdWD <- WdDen$sdWD
+
+#calculate AGB for trees
+dummy_plots_trees$AGBtree <- computeAGB(D = dummy_plots_trees$dbh, WD = dummy_plots_trees$meanWD, H = dummy_plots_trees$H)
+
+#calculate AGB for lianas
+
+
+```
+
+Diversity Analysis
+```{r}
+hill_dat <- data.frame(xtabs(~Project_Plot + Species, data = dummy_plots2))
+
+hill_dat2 <- hill_dat %>% 
+  pivot_wider(names_from = "Species", values_from = "Freq")
+class(hill_dat2)
+hill_dat2_list <- as.list(hill_dat2)
+
+hill_dat3 <- hill_dat %>% 
+  pivot_wider(names_from = "NewCode", values_from = "Freq")
+hill_dat4 <- hill_dat3[-c(0,1)]
+hill_dat4_list <- as.list(hill_dat4)
+
+hill <- iNEXT(hill_dat4_list, q = c(0,1,2), datatype = "abundance")
+hill
+```
+
+Spatial Variables 
+```{r}
+bioclim_data
+
+bioclim.pca <- princomp(bioclim_data[,-c(1:2,22:40)])
+
+# print shows you the eigenvalues;
+print(bioclim.pca)
+# summary does the same but adds the raw and cumulative variance:
+summary(bioclim.pca) 
+
+```
+

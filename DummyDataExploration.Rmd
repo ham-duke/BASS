@@ -150,4 +150,4 @@ print(bioclim.pca)
 summary(bioclim.pca) 
 
 ```
-
+edit

@@ -1,0 +1,52 @@
+---
+title: "Useful Trees GLMs"
+author: "Christina Boxberger"
+date: "2/9/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+```
+
+## Moabi Model
+
+```{r moabi-model}
+moabi <- read.csv("Moabi.csv")
+
+moabi$Gender <- as.factor(moabi$Gender)
+levels(moabi$Gender)
+
+moabi$Axis <- as.factor(moabi$Axis)
+levels(moabi$Axis)
+
+moabi$Ethnicity <- as.factor(moabi$Ethnicity)
+levels(moabi$Ethnicity)
+
+moabi$Age <- as.factor(moabi$Age)
+levels(moabi$Age)
+
+moabi$Distance <- as.numeric(moabi$Distance)
+
+ggpairs(moabi)
+
+moabi2 <- glm(Moabi ~ Distance + factor(Axis) + factor(Ethnicity) + factor(Gender) + factor(Age) + Farmer + Hunter, family = binomial, data = moabi)
+summary(moabi2)
+
+moabi3 <- glm(Moabi ~ Distance + factor(Ethnicity) + factor(Gender) + factor(Age) + Farmer + Hunter, family = binomial, data = moabi)
+summary(moabi3)
+
+moabi4 <- glm(Moabi ~ Distance + factor(Ethnicity) + factor(Gender) + factor(Age) + Hunter, family = binomial, data = moabi)
+summary(moabi4)
+
+moabi5 <- glm(Moabi ~ Distance + factor(Ethnicity) + factor(Gender) + Hunter, family = binomial, data = moabi)
+summary(moabi5)
+
+moabi6 <- glm(Moabi ~ Distance + factor(Gender) + Hunter, family = binomial, data = moabi)
+summary(moabi6)
+
+AICc(moabi2, moabi3, moabi4, moabi5, moabi6)
+
+```
+

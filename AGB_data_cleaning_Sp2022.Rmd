@@ -1,0 +1,16 @@
+---
+title: "Data Cleaning for AGB Analysis (Spring 2022)"
+author: "Aubrey Knier"
+date: "3/23/2022"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+getwd()
+
+AGB.sp22.data.raw <- read.csv("Data_USE_ME.csv")
+```

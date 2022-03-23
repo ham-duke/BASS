@@ -12,5 +12,11 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 getwd()
 
+#load data
 AGB.sp22.data.raw <- read.csv("Data_USE_ME.csv")
+```   
+
+```{r}
+#using plots: "DF3B", "DF5A", "DF5B", "DF6A", "DF6B" and "IF2A"
+
 ```

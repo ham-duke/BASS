@@ -12,11 +12,33 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 getwd()
 
+library(tidyverse)
+#install.packages("janitor")
+library(janitor)
+
 #load data
 AGB.sp22.data.raw <- read.csv("Data_USE_ME.csv")
+clean.spp.list <- read.csv("clean_spp_list.csv") %>%
+  select(Species)
 ```   
 
 ```{r}
 #using plots: "DF3B", "DF5A", "DF5B", "DF6A", "DF6B" and "IF2A"
 
+#exploring groups within project and plot columns
+unique(AGB.sp22.data.raw$Project)
+unique(AGB.sp22.data.raw$Plot)
+
+#filter data for only our 6 plots
+AGB.sp22.data <- AGB.sp22.data.raw %>%
+  unite("Proj.Plot", Project:Plot, remove=F) %>%
+    filter(Proj.Plot %in% c("DF_3B", "DF_5A", "DF_5B", "DF_6A", "DF_6B", "IF_2A"))
+
+#check row names of Proj.Plot
+unique(AGB.sp22.data$Proj.Plot) #only data for 6 plots in data frame
+
+#compare species ID in dataframe with reference species list. 1=match, 0=no match
+AGB.sp22.data$Spp.match <- ifelse(AGB.sp22.data$ID %in% clean.spp.list, 1,0)
+
+unique(AGB.sp22.data$Spp.match)
 ```

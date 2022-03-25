@@ -54,16 +54,28 @@ AGB.sp22.data.subset$Date <- as.Date(AGB.sp22.data.subset$Date,
 class(AGB.sp22.data.subset$Date)
 
 #Checking through columns 
+#Data_Collection_Season
 unique(AGB.sp22.data.subset$Data_Collection_Season)
 ###QUESTION FOR VINCENT - what is the difference between Winter_2021 and Nov_Dec_2021? can you explain these data collection periods more?
 unique(AGB.sp22.data.subset$Date)
 summary(AGB.sp22.data.subset$Date)
 ### Why are there NAs for Date? 
+
+#Proj.Plot
 unique(AGB.sp22.data.subset$Proj.Plot)
+
+#Grid
 unique(AGB.sp22.data.subset$Grid)
 #Found H7/J8 which is wrong 
 class(AGB.sp22.data.subset$Grid)
+#AGB.sp22.data.subset %>% filter_all(any_vars(. %in% c('H7/J8')))
 sum(AGB.sp22.data.subset$Grid == "H7/J8")
+AGB.sp22.data.subset$Grid[AGB.sp22.data.subset$Grid %in% c("H7/J8")] <- "H7/I8"
+
+#TAG_SUM
+unique(AGB.sp22.data.subset$TAG_SUM)
+#This will be difficult to work through... anddd....I worry about H7/J8
+
 
 #compare species ID in dataframe with reference species list. 1=match, 0=no match
 AGB.sp22.data$Spp.match <- ifelse(AGB.sp22.data$ID %in% clean.spp.list, 1,0)

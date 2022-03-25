@@ -1,6 +1,6 @@
 ---
 title: "Data Cleaning for AGB Analysis (Spring 2022)"
-author: "Aubrey Knier"
+author: "Aubrey Knier & Mishka Malinowski"
 date: "3/23/2022"
 output: pdf_document
 ---
@@ -36,6 +36,34 @@ AGB.sp22.data <- AGB.sp22.data.raw %>%
 
 #check row names of Proj.Plot
 unique(AGB.sp22.data$Proj.Plot) #only data for 6 plots in data frame
+
+#subset data
+colnames(AGB.sp22.data)
+AGB.sp22.data.subset <- AGB.sp22.data %>%
+  select(E, Date..dd.mm.yyyy..1,Proj.Plot,Grid,TAG_SUM, Plant_tag, X_coord, Y_coord, Tool, POM, DBH..mm., Height..meters.,Type_Field, Note_Field, ID, Treatment)
+colnames(AGB.sp22.data.subset)
+##QUESTION FOR VINCENT - What is treatment? 
+
+#column names 
+colnames(AGB.sp22.data.subset) = c("Data_Collection_Season", "Date", "Proj.Plot", "Grid", "TAG_SUM", "Plant_tag", "X_coord", "Y_Coord", "Tool", "POM", "DBH_mm", "Height_m", "Veg_Type", "Notes", "ID", "Treatment")
+
+#Check Date Column 
+class(AGB.sp22.data.subset$Date)
+AGB.sp22.data.subset$Date <- as.Date(AGB.sp22.data.subset$Date,
+                                     format = "%d/%m/%Y")
+class(AGB.sp22.data.subset$Date)
+
+#Checking through columns 
+unique(AGB.sp22.data.subset$Data_Collection_Season)
+###QUESTION FOR VINCENT - what is the difference between Winter_2021 and Nov_Dec_2021? can you explain these data collection periods more?
+unique(AGB.sp22.data.subset$Date)
+summary(AGB.sp22.data.subset$Date)
+### Why are there NAs for Date? 
+unique(AGB.sp22.data.subset$Proj.Plot)
+unique(AGB.sp22.data.subset$Grid)
+#Found H7/J8 which is wrong 
+class(AGB.sp22.data.subset$Grid)
+sum(AGB.sp22.data.subset$Grid == "H7/J8")
 
 #compare species ID in dataframe with reference species list. 1=match, 0=no match
 AGB.sp22.data$Spp.match <- ifelse(AGB.sp22.data$ID %in% clean.spp.list, 1,0)

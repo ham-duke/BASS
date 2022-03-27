@@ -20,6 +20,8 @@ library(janitor)
 AGB.sp22.data.raw <- read.csv("Data_USE_ME.csv")
 clean.spp.list <- read.csv("clean_spp_list.csv") %>%
   select(Species)
+
+class(clean.spp.list)
 ```   
 
 ```{r}
@@ -38,7 +40,11 @@ AGB.sp22.data <- AGB.sp22.data.raw %>%
 unique(AGB.sp22.data$Proj.Plot) #only data for 6 plots in data frame
 
 #compare species ID in dataframe with reference species list. 1=match, 0=no match
-AGB.sp22.data$Spp.match <- ifelse(AGB.sp22.data$ID %in% clean.spp.list, 1,0)
+AGB.sp22.data$Spp.match <- 
+  
+
+  
+  ifelse(AGB.sp22.data$ID %in% clean.spp.list, 1,0)
 
 unique(AGB.sp22.data$Spp.match)
 ```

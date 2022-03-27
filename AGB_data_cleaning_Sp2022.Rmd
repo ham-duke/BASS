@@ -152,13 +152,30 @@ unique(AGB.sp22.data.subset$Treatment)
 sort(unique(AGB.sp22.data.subset$ID))
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Afrostyrax lepidophloeus")] <- "Afrostyrax lepidophyllus"
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Agellae paradoxa")] <- "Agelaea paradoxa"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Xylopia quintesi")] <- "	
+Xylopia quintasii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Xylopia staudti")] <- "Xylopia staudtii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Xylopia ethiopica")] <- "Xylopia aethiopica"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Tricoscypha acuminata")] <- "Trichoscypha acuminata"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Tessmania africana")] <- "Tessmannia africana"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Strombosiopsis tetranda")] <- "Strombosiopsis tetrandra"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Streptogyna crinita")] <- "Streptogyna crinata" # **make sure that these are supposed to be the same spp.
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Sorendea gabonensis")] <- "Sorindeia gabonensis" # **make sure that these are supposed to be the same spp.
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Scotellia klainiana")] <- "Scottellia klaineana"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Scotelia sp 1")] <- "Scottellia sp 1"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("salacia sp 1")] <- "Salacia sp 1"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Salacia sp 1A")] <- "Salacia sp 1"
 
-#compare species ID in dataframe with reference species list. 1=match, 0=no match
-AGB.sp22.data$Spp.match <- 
+
+
+#compare species ID in dataframe with reference species list. 
+inCleanList <- function (x) {
+  any(x==clean.spp.list)
+}
+
+AGB.sp22.data.subset$Spp.match <- 
+  map(AGB.sp22.data.subset$ID, inCleanList)
   
+unique(AGB.sp22.data.subset$Spp.match)
 
-  
-  ifelse(AGB.sp22.data$ID %in% clean.spp.list, 1,0)
-
-unique(AGB.sp22.data$Spp.match)
 ```

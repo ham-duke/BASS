@@ -40,10 +40,10 @@
 39,Massaha,52,2,Kota,male,40-59,0,1,1
 40,Massaha,52,2,Kota,male,18-39,1,0,1
 41,Massaha,52,2,,female,18-39,1,0,0
-42,Bombenda,25,2,,female,18-39,0,0,1
+42,Bombenda,25,2,,female,18-39,1,0,1
 43,Bombenda,25,2,Kota,male,40-59,0,1,1
 44,Bombenda,25,2,Kota,male,60+,1,0,1
-45,Bombenda,25,2,Kota,female,18-39,,,0
+45,Bombenda,25,2,Kota,female,18-39,1,0,0
 46,Mayela I,10,2,Kota,male,60+,1,0,0
 47,Mayela I,10,2,,female,60+,1,0,0
 48,Mayela I,10,2,Kota,male,40-59,1,1,1
@@ -58,8 +58,8 @@
 57,Ntenkele,50,3,Fang,female,40-59,1,0,0
 58,Ntenkele,50,3,Fang,male,60+,1,1,1
 59,Ntenkele,50,3,Fang,male,60+,1,1,1
-60,Simintang,10,3,Fang,female,40-59,,,1
-61,Simintang,10,3,Fang,female,,,,1
+60,Simintang,10,3,Fang,female,40-59,1,0,1
+61,Simintang,10,3,Fang,female,,1,0,1
 62,Simintang,10,3,Fang,male,60+,1,0,0
 63,Simintang,10,3,Fang,male,,1,0,1
 64,Simintang,10,3,Fang,female,60+,1,0,1

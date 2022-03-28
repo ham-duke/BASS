@@ -18,7 +18,7 @@ pacman::p_load(ggplot2, knitr, BIOMASS, dplyr, data.table, gdata,
                rvest, rlang, purrr, tidyverse, iNEXT)
 
 #load data
-dummy_plots <- read.csv("bass_dummy_data.csv")
+dummy_plots <- read.csv("Data_USE_ME.csv")
 bioclim_data <- read.csv("worldclim_bass.csv")
 
 ```
@@ -27,10 +27,16 @@ bioclim_data <- read.csv("worldclim_bass.csv")
 dim(dummy_plots)
 colnames(dummy_plots)
 
+dummy_plots$ID[dummy_plots$ID=="#N/A"] <- NA
+dummy_plots$ID[dummy_plots$ID==""] <- NA
+
+dummy_plots <- dummy_plots[!is.na(dummy_plots$ID),]
+
+
 #create df for just trees
 dummy_plots_trees <- dummy_plots %>%
   filter(Type_Field != "Liana")%>%
-  select(Project, Plot, Grid, TAG_SUM, DBH..mm., Height..meters.)%>%
+  select(Project, Plot, Grid, TAG_SUM, DBH..mm., Height..meters., ID)%>%
   mutate(Project2 = Project)%>%
   unite("Project_Plot", Project:Plot)
 names(dummy_plots_trees)[4]<- "dbh"
@@ -55,12 +61,20 @@ ggplot(data = dummy_plots_trees, aes(x=height))+
 
 summary(dummy_plots_trees)
 
+unique(dummy_plots_trees$Project_Plot)
+dummy_plots_trees <- dummy_plots_trees[dummy_plots_trees$Project_Plot!="_",]
+
 ```
 
 Height models 
 ```{r}
  hplots <- unique(dummy_plots_trees$Project_Plot)
   output <- list()
+  
+height_no <- dummy_plots_trees %>%
+  drop_na(height)%>%
+  group_by(Project_Plot)%>%
+  summarise(n_height=length(height))
 
 Hcalc <- function(ddat, hdat, x){
   
@@ -69,8 +83,8 @@ Hcalc <- function(ddat, hdat, x){
       hmod <- data.frame(modelHD(D = hdat$dbh, H = hdat$height, useWeight = F, method = NULL))
        min_pick <- min(hmod$RSE, na.rm = T)
         bm <- hmod$method[hmod$RSE == min_pick]
-         best_mod <- modelHD(D = hdat$DBH, H = hdat$mHt, useWeight = F, method = bm) 
-          predHt <- retrieveH(D = ddat$D, model = best_mod)
+         best_mod <- modelHD(D = hdat$dbh, H = hdat$height, useWeight = F, method = bm) 
+          predHt <- retrieveH(D = ddat$dbh, model = best_mod)
 
        list(rsq = best_mod$R.squared, rse = best_mod$RSE, mod = best_mod$method, 
                            H = predHt$H, dat = ddat)
@@ -80,7 +94,6 @@ all_hts <- lapply(1:length(unique(dummy_plots_trees$Project_Plot)), function(x) 
                                                     dummy_plots_trees[dummy_plots_trees$Project_Plot == hplots[[x]], ], 
                                                     hdat = dummy_plots_trees[dummy_plots_trees$Project_Plot == hplots[[x]],], 
                                                     x))
- 
 rsq <- unlist(lapply(all_hts, `[[`, "rsq"))
 rse <- unlist(lapply(all_hts, `[[`, "rse"))
 mod <- unlist(lapply(all_hts, `[[`, "mod"))
@@ -88,41 +101,66 @@ hts <- unlist(lapply(all_hts, `[[`, "H"))
 data <- unlist(lapply(all_hts, `[[`, "dat"))
 
 dummy_plots_trees2 <- data.frame(do.call("rbind", (lapply(all_hts, `[[`, "dat"))))
-dummy_plots_trees2$H <- hts
+
+length(hts)
+
+dummy_plots_trees2$H <- hts 
+
 
 ```
 
-Structure (Abundance and Size Classes)
-```{r}
-plot_abundance <- dummy_plots_trees %>%
-  group_by(Project_Plot)%>%
-  dplyr::summarise(abundance = n(),
-                   mean_dbh = mean(dbh))
 
-```
 
 AGB Analysis
 ```{r}
-#get wood density
-WdDen <- getWoodDensity(genus = dummy_plots_trees$Genus,
-          species = dummy_plots_trees$Spp,
-          family= dummy_plots_trees$Famille,
-          stand = dummy_plots_trees$Project_Plot)
+# clean the ID 
+dummy_plots_trees2$Species <-  dummy_plots_trees2$ID
+dummy_plots_trees2 <- dummy_plots_trees2 %>% separate(ID, c("Genus", "Spp"))
+dummy_plots_trees2$Spp[dummy_plots_trees2$Genus=="ECH"] <- NA
+dummy_plots_trees2$Species[dummy_plots_trees2$Genus=="ECH"] <- NA
+dummy_plots_trees2$Genus[dummy_plots_trees2$Genus=="ECH"] <- NA
+dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="sp"] <- NA
+dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="sp"] <- NA
+dummy_plots_trees2$Spp[dummy_plots_trees2$Spp=="sp"] <- NA
+dummy_plots_trees2$Spp[dummy_plots_trees2$Genus=="Morpho"] <- NA
+dummy_plots_trees2$Species[dummy_plots_trees2$Genus=="Morpho"] <- NA
+dummy_plots_trees2$Genus[dummy_plots_trees2$Genus=="Morpho"] <- NA
+dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="1"] <- NA
+dummy_plots_trees2$Spp[dummy_plots_trees2$Spp=="1"] <- NA
+dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="3"] <- NA
+dummy_plots_trees2$Spp[dummy_plots_trees2$Spp=="3"] <- NA
+dummy_plots_trees2$Species <- gsub(" ", "_", dummy_plots_trees2$Species)
 
-dummy_plots_trees$meanWD <- WdDen$meanWD
-dummy_plots_trees$sdWD <- WdDen$sdWD
+#dummy_plots_trees3 <- dummy_plots_trees2[dummy_plots_trees2$Genus!="Liane",]
+
+#get wood density
+WdDen <- getWoodDensity(genus = dummy_plots_trees2$Genus,
+          species = dummy_plots_trees2$Species,
+          stand = dummy_plots_trees2$Project_Plot)
+
+dummy_plots_trees2$meanWD <- WdDen$meanWD
+dummy_plots_trees2$sdWD <- WdDen$sdWD
 
 #calculate AGB for trees
-dummy_plots_trees$AGBtree <- computeAGB(D = dummy_plots_trees$dbh, WD = dummy_plots_trees$meanWD, H = dummy_plots_trees$H)
+dummy_plots_trees2$AGBtree <- computeAGB(D = dummy_plots_trees2$dbh, WD = dummy_plots_trees2$meanWD, H = dummy_plots_trees2$H)
 
-#calculate AGB for lianas
+```
 
+Structure (Abundance and Size)
+```{r}
+plot_abundance <- dummy_plots_trees2 %>%
+  group_by(Project_Plot)%>%
+  drop_na(dbh, H)%>%
+  dplyr::summarise(abundance = n(),
+                   mean_dbh = mean(dbh), 
+                   mean_height = mean(H), 
+                   mean_agb = mean(AGBtree))
 
 ```
 
 Diversity Analysis
 ```{r}
-hill_dat <- data.frame(xtabs(~Project_Plot + Species, data = dummy_plots2))
+hill_dat <- data.frame(xtabs(~Project_Plot + Species, data = dummy_plots_trees2))
 
 hill_dat2 <- hill_dat %>% 
   pivot_wider(names_from = "Species", values_from = "Freq")
@@ -130,13 +168,28 @@ class(hill_dat2)
 hill_dat2_list <- as.list(hill_dat2)
 
 hill_dat3 <- hill_dat %>% 
-  pivot_wider(names_from = "NewCode", values_from = "Freq")
+  pivot_wider(names_from = "Project_Plot", values_from = "Freq")
 hill_dat4 <- hill_dat3[-c(0,1)]
 hill_dat4_list <- as.list(hill_dat4)
 
 hill <- iNEXT(hill_dat4_list, q = c(0,1,2), datatype = "abundance")
-hill
+hill <- as.data.frame(hill[[3]])
+hill2 <- hill %>% 
+  select(Site, Diversity, Observed)%>%
+  pivot_wider(names_from = "Diversity", values_from = "Observed")
+colnames(hill2)[1] <- "Project_Plot"
+
+summary_stats <- merge(hill2, plot_abundance, by="Project_Plot")
+colnames(summary_stats)[2] <- "Species_Richness"
+colnames(summary_stats)[3] <- "Shannon_Diversity"
+colnames(summary_stats)[4] <- "Simpson_Diversity"
 ```
+
+```{r}
+summary(lm(data=summary_stats, Species_Richness ~ mean_agb))
+summary(lm(data=summary_stats, Shannon_Diversity ~ mean_agb))
+```
+
 
 Spatial Variables 
 ```{r}

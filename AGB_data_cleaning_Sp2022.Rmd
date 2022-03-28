@@ -77,7 +77,7 @@ summary(AGB.sp22.data.subset$Date)
 
 #Data_Collection_Season
 unique(AGB.sp22.data.subset$Data_Collection_Season)
-###QUESTION FOR VINCENT - what is the difference between Winter_2021 and Nov_Dec_2021? can you explain these data collection periods more?
+#3 data collection periods Summer_2021 = July 2021, Winter_2021 = March 2021, Nov_Dec_2021,
 
 #Grid
 unique(AGB.sp22.data.subset$Grid)
@@ -93,7 +93,7 @@ TAG_NUM_ID <- AGB.sp22.data.subset %>%
   unite("TAG_NUM_2", Proj.Plot:Grid:Plant_tag)
 
 Plant_tag_duplicates <- TAG_NUM_ID %>% group_by(TAG_NUM_2) %>% summarise(n=sum(n())) %>% filter(n>1)
-##Well.... even with the most unique identifier we find 1,683 duplicates... so perhaps there was an error with data entry... either in the field or transfering between paper and database
+##Well.... even with the most unique identifier we find 1,683 duplicates... so perhaps there was an error with data entry... either in the field or transferring between paper and database
 
 #X_coord 
 summary(AGB.sp22.data.subset$X_Coord)
@@ -148,6 +148,7 @@ unique(AGB.sp22.data.subset$Treatment)
 #Species IDs
 
 sort(unique(AGB.sp22.data.subset$ID))
+
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Afrostyrax lepidophloeus")] <- "Afrostyrax lepidophyllus"
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Agellae paradoxa")] <- "Agelaea paradoxa"
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Xylopia quintesi")] <- "Xylopia quintasii"
@@ -262,4 +263,7 @@ inCleanList <- function (x) {
 AGB.sp22.data.subset$Spp.match <- 
   map(AGB.sp22.data.subset$ID, inCleanList)
 
+
+sort(unique(AGB.sp22.data.subset$ID))
+#617 IDs 
 ```

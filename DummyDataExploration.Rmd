@@ -15,7 +15,7 @@ getwd()
 
 # load packages
 pacman::p_load(ggplot2, knitr, BIOMASS, dplyr, data.table, gdata, 
-               rvest, rlang, purrr, tidyverse, iNEXT)
+               rvest, rlang, purrr, tidyverse, iNEXT, ggpubr)
 
 #load data
 dummy_plots <- read.csv("Data_USE_ME.csv")
@@ -61,7 +61,7 @@ ggplot(data = dummy_plots_trees, aes(x=height))+
 
 summary(dummy_plots_trees)
 
-unique(dummy_plots_trees$Project_Plot)
+unique(dummy_plots$Project_Plot)
 dummy_plots_trees <- dummy_plots_trees[dummy_plots_trees$Project_Plot!="_",]
 
 ```
@@ -148,6 +148,7 @@ dummy_plots_trees2$AGBtree <- computeAGB(D = dummy_plots_trees2$dbh, WD = dummy_
 
 Structure (Abundance and Size)
 ```{r}
+#for 6 plots 
 plot_abundance <- dummy_plots_trees2 %>%
   group_by(Project_Plot)%>%
   drop_na(dbh, H)%>%
@@ -156,6 +157,50 @@ plot_abundance <- dummy_plots_trees2 %>%
                    mean_height = mean(H), 
                    mean_agb = mean(AGBtree))
 
+#for all plots, where possible 
+dummy_plots_all <- read.csv("Data_USE_ME.csv")
+dummy_plots_all$Forest_Type <- dummy_plots_all
+dummy_plots_all<- dummy_plots_all %>%
+  filter(Type_Field != "Liana")%>%
+  select(Project, Plot, Grid, TAG_SUM, DBH..mm., Height..meters.)%>%
+  mutate(Project2 = Project)%>%
+  unite("Project_Plot", Project:Plot)
+names(dummy_plots_all)[4]<- "dbh"
+names(dummy_plots_all)[5]<- "height"
+dummy_plots_all <- dummy_plots_all[dummy_plots_all$Project_Plot!="_",]
+
+abundance_all <- dummy_plots_all %>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise(abundance = n())
+
+structure_all <- dummy_plots_all %>%
+  drop_na(dbh, height)%>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise(meanDBH = mean(dbh),
+                   meanHeight= mean(height))
+
+structure_all <- merge(structure_all, abundance_all, by="Project_Plot")
+structure_all$Forest_Type <- c("DF", "DF","DF","DF","DF","DF","DF","DF","DF","DF","DF","DF","IF","IF","IF","IF","IF","IF")
+
+#only small trees
+abundance_sm <- dummy_plots_all %>%
+  filter(dbh < 30)%>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise(abundance_sm = n())
+#only medium trees
+abundance_m <- dummy_plots_all %>%
+  filter(dbh >= 30& dbh <70)%>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise(abundance_m = n())
+#only lg trees
+abundance_lg <- dummy_plots_all %>%
+  filter(dbh >70)%>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise(abundance_lg = n())
+
+structure_all <- merge(structure_all, abundance_sm, by="Project_Plot")
+structure_all <- merge(structure_all, abundance_m, by="Project_Plot")
+structure_all <- merge(structure_all, abundance_lg, by="Project_Plot")
 ```
 
 Diversity Analysis
@@ -185,11 +230,54 @@ colnames(summary_stats)[3] <- "Shannon_Diversity"
 colnames(summary_stats)[4] <- "Simpson_Diversity"
 ```
 
+```{r Structure Figures}
+structure_all$Forest_Type[structure_all$Forest_Type=="DF"] <- "Defaunated"
+structure_all$Forest_Type[structure_all$Forest_Type=="IF"] <- "Intact"
+
+abundance_plot <- ggplot(data=structure_all, aes(x= Forest_Type, y= abundance))+
+  geom_boxplot()+
+  theme_classic()+
+  ylab("Abundance")+
+  xlab("Forest Type")
+
+height_plot <- ggplot(data=structure_all, aes(x= Forest_Type, y= meanHeight))+
+  geom_boxplot()+
+  theme_classic()+
+  ylab("Mean Height")+
+  xlab("Forest Type")
+
+dbh_plot <- ggplot(data=structure_all, aes(x= Forest_Type, y= meanDBH))+
+  geom_boxplot()+
+  theme_classic()+
+  ylab("Mean DBH")+
+  xlab("Forest Type")
+
+ggarrange(abundance_plot, height_plot, dbh_plot, labels = c("a", "b", "c"))
+
+#abundance by size class
+
+abundance_dat <- structure_all %>%
+  select(abundance, abundance_sm, abundance_m, abundance_lg, Project_Plot, Forest_Type)%>%
+  pivot_longer(cols= abundance:abundance_lg, names_to = "Size Class")
+abundance_dat$`Size Class`[abundance_dat$`Size Class`=="abundance"] <- "All"
+abundance_dat$`Size Class`[abundance_dat$`Size Class`=="abundance_sm"] <- "Small"
+abundance_dat$`Size Class`[abundance_dat$`Size Class`=="abundance_m"] <- "Medium"
+abundance_dat$`Size Class`[abundance_dat$`Size Class`=="abundance_lg"] <- "Large"
+
+ggplot(data=abundance_dat, aes(x= Forest_Type, y= value, fill=`Size Class`))+
+  geom_col(position="dodge")+
+  theme_classic()+
+  ylab("Abundance")+
+  xlab("Forest Type")+
+  scale_fill_brewer(palette="BrBG")
+```
+
+
+
 ```{r}
 summary(lm(data=summary_stats, Species_Richness ~ mean_agb))
 summary(lm(data=summary_stats, Shannon_Diversity ~ mean_agb))
 ```
-
 
 Spatial Variables 
 ```{r}

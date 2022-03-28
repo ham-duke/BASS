@@ -20,8 +20,6 @@ library(janitor)
 AGB.sp22.data.raw <- read.csv("Data_USE_ME.csv")
 clean.spp.list <- read.csv("clean_spp_list.csv") %>%
   select(Species)
-
-class(clean.spp.list)
 ```   
 
 ```{r}
@@ -152,8 +150,7 @@ unique(AGB.sp22.data.subset$Treatment)
 sort(unique(AGB.sp22.data.subset$ID))
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Afrostyrax lepidophloeus")] <- "Afrostyrax lepidophyllus"
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Agellae paradoxa")] <- "Agelaea paradoxa"
-AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Xylopia quintesi")] <- "	
-Xylopia quintasii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Xylopia quintesi")] <- "Xylopia quintasii"
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Xylopia staudti")] <- "Xylopia staudtii"
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Xylopia ethiopica")] <- "Xylopia aethiopica"
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Tricoscypha acuminata")] <- "Trichoscypha acuminata"
@@ -164,9 +161,98 @@ AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Sorendea gabonensis")] <
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Scotellia klainiana")] <- "Scottellia klaineana"
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Scotelia sp 1")] <- "Scottellia sp 1"
 AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("salacia sp 1")] <- "Salacia sp 1"
-AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Salacia sp 1A")] <- "Salacia sp 1"
-
-
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Salacia 1A")] <- "Salacia sp 1" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Salacia 1")] <- "Salacia sp 1" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Rutacea sp 5")] <- "Rutaceae sp 5" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("rubiaceae sp 1")] <- "Rubiaceae sp 1" 
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Rhinorea sp 4")] <- "Rinorea sp 4" 
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Rhinorea sp 3")] <- "Rinorea sp 3" 
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Rhinorea sp 2")] <- "Rinorea sp 2" 
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Rhinorea sp 10")] <- "Rinorea sp 10" 
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Rhinorea sp 1")] <- "Rinorea sp 1" 
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Rhinorea 3")] <- "Rinorea sp 3" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Pseudoposopis giletti")] <- "Pseudoprosopis gilletti" # **confirm which spelling is correct
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Piptadenastrum africana")] <- "Piptadeniastrum africanum" 
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Pentaclethra aetveldiana")] <- "Pentaclethra eetveldeana" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Pausinystalia Johimbe")] <- "Pausinystalia johimbe" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Palusotta hurcita")] <- "Palisota hurcita" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Palisotta ambuga")] <- "Palisota ambuga"
+#should "Palisota sp 1" and "Palisota M1" be the same thing?
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Palisota hirsuta")] <- "Palisota hurcita"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Oncoba manni")] <- "Oncoba mannii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Odoniodendron sp 1")] <- "Oddoniodendron sp 1"
+#NOTE: "Ochnaceae sp _" is referring to family, not genus
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Napoleona vogellei")] <- "Napoleonaea vogelii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Napoleona vogelei")] <- "Napoleonaea vogelii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Napoleona sp 1")] <- "Napoleonaea sp 1"
+# "Morpho" vs "Morpho 001" ?
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Milettia sp 5")] <- "Millettia sp 5"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Milettia sp 4")] <- "Millettia sp 4"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Milettia sp 3")] <- "Millettia sp 3"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Milettia sp 1")] <- "Millettia sp 1"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Milettia barteri")] <- "Millettia barteri"
+#is "Masoncaria acuminata" supposed to be "Massularia acuminata" ??
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Maesobotria sp 1")] <- "Maesobotrya sp 1"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("liane undetermined")] <- "Liane undetermined"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("liane sp 1")] <- "Liane sp 1"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Liana undetermined")] <- "Liane undetermined"
+# what do do with "Liane", "Liane 1", and "Liane sp 1", for example?
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Lassianthera africana")] <- "Lasianthera africana"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Kleinodoxa gabonensis")] <- "Klainedoxa gabonensis"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Klainodoxa babonensis")] <- "Klainedoxa gabonensis"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Klaineanthus gabonii")] <- "Klaineanthus gaboniae"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Klaineanthus gaboni")] <- "Klaineanthus gaboniae"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Hymenostegia pelegrini")] <- "	
+Hymenostegia pellegrinii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Hua gabonii")] <- "Hua gaboni"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Greenwayodendron gabonensis")] <- "Greenwayodendron gabonicum" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Greenwaydendron suavolens")] <- "Greenwayodendron suaveolens"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Greenwaydendron gabonica")] <- "Greenwayodendron gabonicum" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Geophylla sp 1")] <- "Geophila sp 1" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Geophyla afzelli")] <- "Geophila afzelii" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Garcinia smeathmanni")] <- "Garcinia smeathmannii"
+# is "Garcinia smickmannii" supposed to be "Garcinia smeathmannii"??
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Funtunia elastica")] <- "Funtumia elastica"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Funtunia africana")] <- "Funtumia africana"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Fillaeopsis discofora")] <- "Fillaeopsis discophora"
+#NOTE: i think "fern sp 1" etc. is just referring to any fern, not genus level
+#difference between "Fern sp 1" and "Fern Epiphyte sp 1"??
+#NOTE: "Fabaceae sp 3" and "Euphorbiacae sp 3" is at family level, not genus
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Dubosquia macrocarpa")] <- "Duboscia macrocarpa" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Drypetes gosseweileri")] <- "Drypetes gossweileri"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Dismonanthus bentanianus")] <- "Distemonanthus benthamianus"
+#NOTE: is "Diospyros oblitifolia" supposed to be the same as "Diospyros obliquifolia" ??
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Diospyros classiflora")] <- "Diospyros crassiflora"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Diogua zenkeri")] <- "Diogoa zenkeri"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Dialium denclagei")] <- "Dialium dinklagei" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Dialium bipendensis")] <- "Dialium bipindense" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Daniellia Klainei")] <- "Daniellia klainei"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Dachriodes normandii")] <- "Dacryodes normandii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Dachriodes kleiniana")] <- "Dacryodes klaineana"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Dachriodes butineri")] <- "Dacryodes buettneri"
+#NOTE: "Connaraceae sp __" is family level, not genus level
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Cola lisea")] <- "Cola lizae" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Cola edulis")] <- "Coula edulis" # **make sure that these are supposed to be the same
+#should "Cola 1" be "Cola sp 1"?
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Coelocaryron preussii")] <- "Coelocaryon preussii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Chytranthus talboti")] <- "Chytranthus talbotii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Chnetis ferruginea")] <- "Cnestis ferruginea"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Chnestis urens")] <- "Cnestis urens"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Chnestis sp1")] <- "Cnestis sp1"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Chnestis Irens")] <- "Cnestis irens"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Chnestis ferruginea")] <- "Cnestis ferruginea"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Chnestis corniculata")] <- "Cnestis corniculata"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Celtis tessmanni")] <- "Celtis tessmannii"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Bredelia sp 1")] <- "Bridelia sp 1"
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Baphia leptobotris")] <- "Baphia leptobotrys"
+#NOTE: "Araceae sp __" and "Apocynaceae sp __" and "Annonaceae sp __" and "Anacardiaceae sp __" are families, not genus level
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Annonidium manni")] <- "Anonidium mannii"
+#should "Agilocalix 1" be "Agilocalix sp 1" ??
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Agellae poggeana")] <- "Agelaea poggeana" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Agellae sp 9")] <- "Agelaea sp 9" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Agellae sp 3")] <- "Agelaea sp 3" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Agellae sp 2")] <- "Agelaea sp 2" # **make sure that these are supposed to be the same
+AGB.sp22.data.subset$ID[AGB.sp22.data.subset$ID %in% c("Agellae sp 1")] <- "Agelaea sp 1" # **make sure that these are supposed to be the same
 
 #compare species ID in dataframe with reference species list. 
 inCleanList <- function (x) {
@@ -175,7 +261,5 @@ inCleanList <- function (x) {
 
 AGB.sp22.data.subset$Spp.match <- 
   map(AGB.sp22.data.subset$ID, inCleanList)
-  
-unique(AGB.sp22.data.subset$Spp.match)
 
 ```

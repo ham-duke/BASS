@@ -1,0 +1,1000 @@
+---
+title: "AGB Distribution Exploration Copy.Rmd"
+author: "Courtney Horn"
+date: "1/31/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(pacman)
+pacman::p_load(ggplot2, tidyr, BIOMASS, dplyr, RColorBrewer, colormap, ggpubr, cowplot)
+```
+
+```{r loading data, include=FALSE}
+AGBdat <- read.csv("tdat_bass.csv")
+#raw plot data for our 20 plots, including AGB. Rows are individual trees. 
+bassdat <- read.csv("bass_data.csv")
+#plot AGB and metadata. Note that liana data and AGB_TOTAL is not accurate yet because of the liana issue
+AGBdat$genus_spp <- paste(AGBdat$Genus, AGBdat$Spp)
+```
+# Tree size classes within the literature
+The study by Silk et al. (2013) defined small trees as those with dbh values < 70cm, and big trees as those with dbh values >= 70cm. Poulsen et al. (2013) also defined small trees as those with dbh values <= 70cm, and large trees as those with dbh values > 70cm. Menanzala Miambam et al. (2021) defined small trees as those with dbh values greater than or equal to 10cm and less than 30cm, the middle stratum of trees (most of which reach the canopy) as those with dbh values greater than equal to 30 and less than 70cm, and the largest trees (which are either in the canopy or emergent) as those with dbh values >= 70cm. 
+
+
+# **Histograms of tree sizes within our plots**
+
+
+```{r histograms, echo=FALSE, eval=TRUE, warning=FALSE}
+hist1 <- hist(AGBdat$D, breaks = 3, main = "", xlab = "DBH", prob = FALSE)
+  #its looking like there should be something over 10,000 trees present, but I think only 8132 have tags
+#using hist function
+#hist(AGBdat$D, breaks = 3, main = "", xlab = "DBH", prob = TRUE, xlim=c(9.9,195))
+```
+
+
+```{r hist 2, echo=FALSE, eval=TRUE, warning=FALSE}
+hist2 <- hist(AGBdat$D, breaks = 10,  main = "", xlab = "DBH", prob = FALSE)
+```
+
+
+```{r hist 3, echo=FALSE, eval=TRUE, warning=FALSE}
+hist3 <- hist(AGBdat$D, breaks = 15,  main = "", xlab = "DBH", prob = FALSE)
+```
+
+
+```{r hist 4, echo=FALSE, eval=TRUE, warning=FALSE}
+#hist4 <- hist(AGBdat$D, breaks = 30,  main = "", xlab = "DBH", prob = FALSE)
+# xlim=c(9.9,195)
+#using qplot function
+#qplot(x = D, data = AGBdat, binwidth = 10) +
+  #scale_x_continuous(limits = c(0,200), breaks = seq(0, 200, 5))
+```
+
+
+
+
+# Breaking the data frame up by size classes
+```{r size classes, message=FALSE, warning=FALSE, include=FALSE}
+small_trees <- AGBdat %>% 
+  filter(D < 30)
+range(small_trees$D)
+medium_trees <- AGBdat %>% 
+  filter(D >= 30)
+medium_trees_1 <- medium_trees %>% 
+  filter(D < 70)
+range(medium_trees_1$D)
+large_trees <- AGBdat %>% 
+  filter(D >= 70)
+range(large_trees$D)
+dim(small_trees)
+#8174 trees fall into the small trees category
+small_tree_AGB <-
+  sum(small_trees$AGBtree)
+small_tree_AGB
+#small trees hold 1831.114 AGB
+medium_tree_AGB <-
+  sum(medium_trees_1$AGBtree)
+medium_tree_AGB
+large_tree_AGB <-
+  sum(large_trees$AGBtree)
+large_tree_AGB
+dim(medium_trees_1)
+#2052 trees fall into the medium trees category
+dim(large_trees)
+#261 trees fall into the large tree category
+sum(AGBdat$AGBtree)
+# 8298.859 is the total AGB within the plots
+  #small tree proportion:
+1831.114/8298.859
+#0.2206465
+  #medium tree proportion
+3857.644/8298.859
+#0.4648403
+  #large tree proportion
+2610.101/8298.859
+#0.3145132
+dim(AGBdat)
+#10487 total trees I think
+  
+  #small tree proportion
+8174/10487
+#0.7794412
+  #medium tree proportion
+2052/10487
+  #large tree proportion
+261/10487
+#0.02488796
+```
+I split the data up into the size classes used by Menanzala Miambam et al. (2021).
+
+## Small size class: 
+- 8174 trees
+- 78% of total trees
+- 1831.114 AGB
+- 22.1% of total AGB
+
+## Medium size class:
+- 2052 trees
+- 20% of total trees
+- 3857.644 AGB
+- 46.5% of total AGB 
+
+## Large size class:
+- 261 trees
+- 2.5% of total trees
+- 2610.101 AGB
+- 31.5% of total AGB
+
+
+```{r plots preparation, echo=FALSE, eval=TRUE}
+AGBdat$size_class[AGBdat$D < 30] <- c(1)
+AGBdat$size_class[AGBdat$D >= 30] <- c(2)
+AGBdat$size_class[AGBdat$D >= 70] <- c(3)
+AGBdat1 <- 
+  AGBdat %>% 
+  group_by(size_class) %>% 
+  dplyr::summarise(size_class_AGB = sum(AGBtree))
+sum(AGBdat1$size_class_AGB)
+AGBdat$size_class_AGB[AGBdat$D < 30] <- c(1831.114)
+AGBdat$size_class_AGB[AGBdat$D >= 30] <- c(3857.644)
+AGBdat$size_class_AGB[AGBdat$D >= 70] <- c(2610.101)
+AGBdat$size_class <- as.factor(AGBdat$size_class)
+```
+
+
+# Plots:
+
+
+```{r plots2, eval=TRUE, echo=FALSE}
+#this will be my first plot
+ggplot(AGBdat, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("Total Tree AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("AGB distribution among tree size classes") 
+```
+
+
+
+```{r plot3, eval=TRUE, echo=FALSE, fig.height=8, fig.width=8}
+ggplot(AGBdat, aes(x=NewCode, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Plot") +
+  ylab("Total Tree AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+   theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+  ggtitle("Total AGB per Plot") 
+```
+
+
+```{r plot 4, eval=TRUE, echo=FALSE, fig.height=8, fig.width=8}
+ggplot(AGBdat, aes(x=size_class, y=AGBtree, fill=Famille)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("Total AGB per Size Class") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+        xlab("Size Class") +
+        theme(legend.position="bottom") +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+# Individual Plots
+
+```{r ind plot, echo=FALSE, eval = TRUE}
+#I'll try to break up the size class dists in each plot
+DUK_P001_data <- subset(AGBdat, NewCode %in% "DUK_P001")
+plot1 <-
+  DUK_P001_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P001_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P001") 
+print("% contributions of the size classses to DUK_P001 AGB")
+for (i in 1:NROW(plot1)) {
+  print(paste(plot1$size_class[i], sep = ": ", plot1$class_percent[i]))
+}
+```
+```{r ind plot 2, echo=FALSE, eval = TRUE}
+DUK_P002_data <- subset(AGBdat, NewCode %in% "DUK_P002")
+plot2 <-
+  DUK_P002_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P002_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P002") 
+for (i in 1:NROW(plot2)) {
+  print(paste(plot2$size_class[i], sep = ": ", plot2$class_percent[i]))
+}
+```
+```{r ind plot 3, echo=FALSE, eval = TRUE}
+DUK_P003_data <- subset(AGBdat, NewCode %in% "DUK_P003")
+plot3 <-
+  DUK_P003_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P003_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P003") 
+for (i in 1:NROW(plot3)) {
+  print(paste(plot3$size_class[i], sep = ": ", plot3$class_percent[i]))
+}
+```
+```{r ind plot 4, echo=FALSE, eval = TRUE}
+DUK_P004_data <- subset(AGBdat, NewCode %in% "DUK_P004")
+plot4 <-
+  DUK_P004_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P004_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P004") 
+for (i in 1:NROW(plot4)) {
+  print(paste(plot4$size_class[i], sep = ": ", plot4$class_percent[i]))
+}
+```
+```{r ind plot 5, echo=FALSE, eval = TRUE}
+DUK_P005_data <- subset(AGBdat, NewCode %in% "DUK_P005")
+plot5 <-
+  DUK_P005_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P005_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P005") 
+for (i in 1:NROW(plot5)) {
+  print(paste(plot5$size_class[i], sep = ": ", plot5$class_percent[i]))
+}
+```
+```{r ind plot 6, echo=FALSE, eval = TRUE}
+DUK_P006_data <- subset(AGBdat, NewCode %in% "DUK_P006")
+plot6 <-
+  DUK_P006_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P006_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P006") 
+for (i in 1:NROW(plot6)) {
+  print(paste(plot6$size_class[i], sep = ": ", plot6$class_percent[i]))
+}
+```
+```{r ind plot9, echo=FALSE, eval = TRUE}
+DUK_P009_data <- subset(AGBdat, NewCode %in% "DUK_P009")
+plot9 <-
+  DUK_P009_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P009_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P009") 
+for (i in 1:NROW(plot9)) {
+  print(paste(plot9$size_class[i], sep = ": ", plot9$class_percent[i]))
+}
+```
+
+```{r plot 11, echo=FALSE, eval = TRUE}
+DUK_P011_data <- subset(AGBdat, NewCode %in% "DUK_P011")
+plot11 <-
+  DUK_P011_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P011_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P011") 
+for (i in 1:NROW(plot11)) {
+  print(paste(plot11$size_class[i], sep = ": ", plot11$class_percent[i]))
+}
+```
+
+```{r ind plot 12, echo=FALSE, eval = TRUE}
+DUK_P012_data <- subset(AGBdat, NewCode %in% "DUK_P012")
+plot12 <-
+  DUK_P012_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P012_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P012") 
+for (i in 1:NROW(plot12)) {
+  print(paste(plot12$size_class[i], sep = ": ", plot12$class_percent[i]))
+}
+```
+
+```{r ind plot 13, echo=FALSE, eval = TRUE}
+DUK_P013_data <- subset(AGBdat, NewCode %in% "DUK_P013")
+plot13 <-
+  DUK_P013_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P013_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P013") 
+for (i in 1:NROW(plot13)) {
+  print(paste(plot13$size_class[i], sep = ": ", plot13$class_percent[i]))
+}
+```
+```{r ind plot 14, echo=FALSE, eval = TRUE}
+DUK_P014_data <- subset(AGBdat, NewCode %in% "DUK_P014")
+plot14 <-
+  DUK_P014_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P014_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P014") 
+for (i in 1:NROW(plot14)) {
+  print(paste(plot14$size_class[i], sep = ": ", plot14$class_percent[i]))
+}
+```
+```{r ind plot 15, echo=FALSE, eval = TRUE}
+DUK_P015_data <- subset(AGBdat, NewCode %in% "DUK_P015")
+plot15 <-
+  DUK_P015_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(DUK_P015_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("DUK_P015") 
+for (i in 1:NROW(plot15)) {
+  print(paste(plot15$size_class[i], sep = ": ", plot15$class_percent[i]))
+}
+```
+```{r ind plot 67, echo=FALSE, eval = TRUE}
+NRI_P067_data <- subset(AGBdat, NewCode %in% "NRI_P067")
+plot67 <-
+  NRI_P067_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(NRI_P067_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("NRI_P067") 
+for (i in 1:NROW(plot67)) {
+  print(paste(plot67$size_class[i], sep = ": ", plot67$class_percent[i]))
+}
+```
+```{r ind plot 75, echo=FALSE, eval = TRUE}
+NRI_P075_data <- subset(AGBdat, NewCode %in% "NRI_P075")
+plot75 <-
+  NRI_P075_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(NRI_P075_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("NRI_P075") 
+for (i in 1:NROW(plot75)) {
+  print(paste(plot75$size_class[i], sep = ": ", plot75$class_percent[i]))
+}
+```
+```{r NRI_P076, echo=FALSE, eval = TRUE}
+NRI_P076_data <- subset(AGBdat, NewCode %in% "NRI_P076")
+plot76 <-
+  NRI_P076_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(NRI_P076_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("NRI_P076") 
+for (i in 1:NROW(plot76)) {
+  print(paste(plot76$size_class[i], sep = ": ", plot76$class_percent[i]))
+}
+```
+```{r NRI_P087, echo=FALSE, eval = TRUE}
+NRI_P087_data <- subset(AGBdat, NewCode %in% "NRI_P087")
+plot87 <-
+  NRI_P087_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(NRI_P087_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("NRI_P087") 
+for (i in 1:NROW(plot87)) {
+  print(paste(plot87$size_class[i], sep = ": ", plot87$class_percent[i]))
+}
+```
+```{r NRI_P108, echo=FALSE, eval = TRUE}
+NRI_P108_data <- subset(AGBdat, NewCode %in% "NRI_P108")
+plot108 <-
+  NRI_P108_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(NRI_P108_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("NRI_P108") 
+for (i in 1:NROW(plot108)) {
+  print(paste(plot108$size_class[i], sep = ": ", plot108$class_percent[i]))
+}
+```
+```{r}
+```
+
+
+```{r NRI_P110, echo=FALSE, eval = TRUE}
+NRI_P110_data <- subset(AGBdat, NewCode %in% "NRI_P110")
+plot110 <-
+  NRI_P110_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(NRI_P110_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("NRI_P110") 
+for (i in 1:NROW(plot110)) {
+  print(paste(plot110$size_class[i], sep = ": ", plot110$class_percent[i]))
+}
+```
+```{r NRI_P112, echo=FALSE, eval = TRUE}
+NRI_P112_data <- subset(AGBdat, NewCode %in% "NRI_P112")
+plot112 <-
+  NRI_P112_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(NRI_P112_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("NRI_P112") 
+for (i in 1:NROW(plot112)) {
+  print(paste(plot112$size_class[i], sep = ": ", plot112$class_percent[i]))
+}
+```
+```{r NRI_P113, echo=FALSE, eval = TRUE}
+NRI_P113_data <- subset(AGBdat, NewCode %in% "NRI_P113")
+plot113 <-
+  NRI_P113_data %>% 
+  group_by(size_class) %>% 
+  dplyr::summarize(plot_size_class_agb = sum(AGBtree)) %>% 
+  mutate(class_percent = plot_size_class_agb/sum(plot_size_class_agb)*100)
+ggplot(NRI_P113_data, aes(x=size_class, y=AGBtree, fill = size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("AGB") +
+  scale_fill_discrete(name = "Size Class", labels = c("1 - Small (10 - 30cm)", "2 - Medium (30 - 70cm)", "3 - Large (70+ cm)")) +
+  ggtitle("NRI_P113") 
+for (i in 1:NROW(plot113)) {
+  print(paste(plot113$size_class[i], sep = ": ", plot113$class_percent[i]))
+}
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+```{r size class relative abundances, echo=FALSE, eval = TRUE}
+AGBdat$size_class_2[AGBdat$D < 30] <- c("small")
+AGBdat$size_class_2[AGBdat$D >= 30] <- c("medium")
+AGBdat$size_class_2[AGBdat$D >= 70] <- c("large")
+AGBdat2 <- drop_na(AGBdat, Spp)
+species_count <-
+  AGBdat2 %>% count(genus_spp)
+hist(species_count$n, breaks = 30, main = paste("Histogram of Species Abundance"), xlab = "Species Abundance", ylab = "Frequency")
+abundant_spp <-
+  species_count %>% 
+  filter(n >= 200)
+print("The four most abundant species in our data set are 
+      listed in the data set below, along with their abundance values")
+print(abundant_spp)
+AGBdat3 <-
+  AGBdat2 %>% 
+  filter(genus_spp == "Dichostemma glaucescens" | genus_spp == "Plagiostyles africana" | genus_spp == "Santiria trimera" | genus_spp == "Scorodophloeus zenkeri")
+ggplot(AGBdat3, aes(x=size_class, y=AGBtree, fill = genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") +
+  xlab("Size Class") +
+  ylab("Total Tree AGB") +
+  ggtitle("Total AGB per Size Class of the Most Abundant Species") 
+sum(AGBdat3$AGBtree)
+#902.1802 AGB in the super abundant species
+sum(AGBdat$AGBtree)
+#8298.859 total AGB
+```
+	
+# The most abundant species, in order of decreasing abundance, are:
+
+- Santiria trimera (788)
+- Scorodophloeus zenkeri (432)
+- Plagiostyles africana (381)
+- Dichostemma glaucescens (272)
+- Scyphocephalium mannii (197)
+- Hymenostegia pellegrinii (193)
+- Diogoa zenkeri (176), Coula edulis (147)
+- Strombosiopsis tetrandra (136)
+- Greenwayodendron suaveolens (135)
+- Musanga cecropioides (131)
+- Corynanthe macroceras (112)
+- Pentaclethra eetveldeana (101)
+
+
+```{r checking which species are in the size classes, include=FALSE}
+small_species_count <-
+  small_trees %>% count(genus_spp)
+hist(small_species_count$n, breaks = 30, main = paste("Histogram of Species Abundance"), xlab = "Species Abundance", ylab = "Frequency")
+s_abundant_spp <-
+  small_species_count %>% 
+  filter(n >= 200)
+med_species_count <- 
+  medium_trees_1 %>% count(genus_spp)
+hist(med_species_count$n, breaks = 30, main = paste("Histogram of Species Abundance"), xlab = "Species Abundance", ylab = "Frequency")
+m_abundant_spp <-
+  med_species_count %>% 
+  filter(n >= 100)
+View(m_abundant_spp)
+large_species_count <- 
+  large_trees %>% count(genus_spp)
+hist(large_species_count$n, breaks = 30, main = paste("Histogram of Species Abundance"), xlab = "Species Abundance", ylab = "Frequency")
+l_abundant_spp <-
+  large_species_count %>% 
+  filter(n >= 30)
+View(l_abundant_spp)
+mannii <- 
+  AGBdat %>% 
+  filter(genus_spp == "Scyphocephalium mannii")
+sum(mannii$AGBtree)
+```
+# Most abundant species per size class:
+
+## Small trees: 
+
+Santiria trimera, Scorodophloeus zenkeri, Plagiostyles africana, and Dichostemma glaucescens are the most abundant species
+
+## Medium trees: 
+
+Plagiostyles africana and Scorodophloeus zenkeri are the most abundant species
+
+## Large trees: 
+
+Scyphocephalium mannii is the most abundant large tree species
+
+
+```{r}
+ggplot(AGBdat, aes(x=size_class, y=AGBtree, fill=genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("Total AGB per Size Class") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+        xlab("Size Class") +
+        theme(legend.position="bottom") +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+
+
+More data exploration Nov 21
+```{r}
+tdat_read <- read.csv("tdat_bass.csv")
+tdat <- na.omit(tdat_read)
+species_agb <- with(tdat_read , aggregate(AGBtree, list(Species=Species, NewCode=NewCode), sum))
+species_count_2 <- na.omit(species_count)
+tdat_fam <- with(tdat_read , aggregate(AGBtree, list(Famille=Famille), sum))
+tdat_fam <- tdat_fam %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+tdat_fam <- tdat_fam[order(tdat_fam$x, decreasing=T),]
+AGBdatnew <- na.omit(AGBdat, cols = genus_spp)
+tdat_gen_spp <- with(AGBdatnew , aggregate(AGBtree, list(species=genus_spp), sum))
+tdat_gen_spp <- tdat_gen_spp %>% dplyr::mutate(perc = scales::percent(x / sum(x), accuracy = .1, trim = FALSE))
+tdat_gen_spp <- tdat_gen_spp[order(tdat_gen_spp$x, decreasing=T),]
+top_biomass <-  
+  tdat_gen_spp %>%
+    top_frac(n = 0.1, wt = x)
+for (i in 1:NROW(tdat_gen_spp$species)) {
+  print(tdat_gen_spp$species[i])
+  print(tdat_gen_spp$perc[i])
+}
+biomass_full <-
+  AGBdatnew %>% 
+  filter(genus_spp == "Scyphocephalium mannii" |  genus_spp == "Scorodophloeus zenkeri" |genus_spp == "Hymenostegia pellegrinii" |  genus_spp == "Santiria trimera"| genus_spp == "Plagiostyles africana" | genus_spp == "Coula edulis" | genus_spp == "Dacryodes buettneri" | genus_spp == "Staudtia kamerunensis" | genus_spp == "Desbordesia glaucescens" | genus_spp == "Gilletiodendron pierreanum" | genus_spp == "Dialium angolense" | genus_spp == "Diogoa zenkeri" | genus_spp == "Pentaclethra eetveldeana" | genus_spp == "Engomegoma gordonii" | genus_spp == "Petersianthus macrocarpus" | genus_spp == "Distemonanthus benthamianus" | genus_spp == "Bikinia grisea" | genus_spp == "Piptadeniastrum africanum" | genus_spp == "Celtis tessmannii" | genus_spp == "Pycnanthus angolensis" | genus_spp == "Berlinia bracteosa" | genus_spp == "Panda oleosa" | genus_spp == "Strombosiopsis tetrandra") 
+abundant_spp <-
+  species_count %>% 
+  filter(n >= 200)
+```
+
+
+```{r}
+# I need to fix the x axis labels
+#this plot is an accidental repeat from Aubreys
+ggplot(top_biomass, aes(x=species, y=x, fill=species)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("AGB per most species with the greatest biomass") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+        xlab("Species") +
+        theme(legend.position="bottom") +
+   theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+
+
+```{r}
+# I need to fix the x axis labels
+ggplot(biomass_full, aes(x=size_class, y=AGBtree, fill=genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("AGB per size class of species with the greatest biomass (top 10%)") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+        xlab("Size Class") +
+        theme(legend.position="bottom") +
+   #theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+```{r}
+tdat_gen_spp2 <- species_count_2 %>% dplyr::mutate(perc = scales::percent(n / sum(n), accuracy = .1, trim = FALSE))
+tdat_gen_spp2<- tdat_gen_spp2[order(tdat_gen_spp2$n, decreasing=T),]
+top_abund_real <-  
+  tdat_gen_spp2 %>%
+    top_frac(n = 0.1, wt = n)
+for (i in 1:NROW(top_abund_real$genus_spp)) {
+  print(top_abund_real$genus_spp[i])
+  print(top_abund_real$perc[i])
+}
+#write.csv(top_abund_real, file = "most_abundant_species.csv")
+tdat_abund_merged <- left_join(top_abund_real, AGBdatnew, by = "genus_spp", keep = FALSE)
+tdat_gen_merged_filtered <- 
+  tdat_abund_merged %>% 
+  filter(genus_spp == "Santiria trimera" |  genus_spp == "Scorodophloeus zenkeri" |genus_spp == "Plagiostyles africana" |  genus_spp == "Dichostemma glaucescens"| genus_spp == "Scyphocephalium mannii" | genus_spp == "Hymenostegia pellegrinii" | genus_spp == "Diogoa zenkeri" | genus_spp == "Coula edulis" | genus_spp == "Strombosiopsis tetrandra" | genus_spp == "Greenwayodendron suaveolens" | genus_spp == "Musanga cecropioides" | genus_spp == "Corynanthe macroceras" | genus_spp == "Pentaclethra eetveldeana" | genus_spp == "Carapa procera" | genus_spp == "Distemonanthus benthamianus" | genus_spp == "Dialium angolense" | genus_spp == "Coelocaryon preussii" | genus_spp == "Petersianthus macrocarpus" | genus_spp == "Gilbertiodendron ogoouense" | genus_spp == "Heisteria parvifolia" | genus_spp == "Dacryodes buettneri" | genus_spp == "Oncoba welwitschii" | genus_spp == "Panda oleosa" | genus_spp == "Staudtia kamerunensis" | genus_spp == "Xylopia aethiopica") 
+ggplot(tdat_gen_merged_filtered, aes(x=size_class, y=n, fill=genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("Abundance by size class of the most abundant species (top 10%)") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("Abundance") +
+        xlab("Size Class") +
+        theme(legend.position="bottom") +
+   #theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+
+```{r}
+ggplot(tdat_gen_merged_filtered, aes(x=genus_spp, y=n, fill=size_class)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("Abundance by size class of the most abundant species (top 10%)") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("Abundance") +
+        xlab("Species") +
+        theme(legend.position="bottom") +
+   theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+```{r}
+ggplot(tdat_gen_merged_filtered, aes(x=size_class, y=AGBtree, fill=genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("AGB by size class of the most abundant species") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+        xlab("Size Class") +
+        theme(legend.position="bottom") +
+   #theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+```{r}
+ggplot(tdat_gen_merged_filtered, aes(x=genus_spp, y=AGBtree, fill=perc)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+        xlab("Species") +
+        theme(legend.position="bottom") +
+   theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+Looks like some of the less abundant of this group are contributing more to biomass
+```{r}
+tdat_gen_merged_filtered$perc <- as.numeric(tdat_gen_merged_filtered$perc)
+ggplot(tdat_gen_merged_filtered, aes(x=genus_spp, y=perc)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+        xlab("Species") +
+        theme(legend.position="bottom") +
+   theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+
+
+
+How much of each size class??
+
+Is abundance or wood density more important for AGB contribution?
+
+```{r}
+tdat_gen_merged_filtered$perc <- as.numeric(tdat_gen_merged_filtered$perc)
+ggplot(tdat_gen_merged_filtered, aes(x=size_class, y=n)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("Abundance") +
+        xlab("Size class") +
+        theme(legend.position="bottom") +
+  # theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+
+```{r}
+ggplot(tdat_gen_merged_filtered, aes(x=size_class, y=(AGBtree/n))) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB/Abundance") +
+        xlab("Size class") +
+        theme(legend.position="bottom") +
+  # theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+```{r}
+ggplot(tdat_gen_merged_filtered, aes(x=size_class, y=(AGBtree/n), fill = genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB/Abundance") +
+        xlab("Size class") +
+        theme(legend.position="bottom") +
+  # theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+```{r}
+large_trees_2 <- na.omit(large_trees, cols = Genus, Spp)
+large_trees_merged <- left_join(tdat_gen_merged_filtered, large_trees_2, by = "genus_spp", keep = FALSE)
+ggplot(large_trees_merged, aes(x=genus_spp, y=n, fill = genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("Abundance") +
+        xlab("Species") +
+        theme(legend.position="bottom") +
+  theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+What is scyphocephalium mannii?
+
+```{r}
+ggplot(large_trees_merged, aes(x=genus_spp, y=AGBtree.x, fill = genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB") +
+        xlab("Species") +
+        theme(legend.position="bottom") +
+  theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+```{r}
+ggplot(large_trees_merged, aes(x=genus_spp, y=(AGBtree.x/n), fill = genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("AGB/Abundance") +
+        xlab("Species") +
+        theme(legend.position="bottom") +
+  theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+```{r}
+ggplot(large_trees_merged, aes(x=genus_spp, y=meanWD.x, fill = genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("Mean Wood Density") +
+        xlab("Species") +
+        theme(legend.position="bottom") +
+  theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```
+
+
+```{r}
+ggplot(large_trees_merged, aes(x=genus_spp, y=H.y, fill = genus_spp)) +
+  theme_light() +
+  geom_bar(stat="identity") + 
+      ggtitle("") +
+      theme(plot.title=element_text(face="bold")) + 
+        ylab("Mean Wood Density") +
+        xlab("Species") +
+        theme(legend.position="bottom") +
+  theme(axis.text.x = element_text(angle = 90, hjust=0.95, vjust=0.5)) +
+               theme(axis.text.x=element_text(size=8, face="italic")) +
+                 theme(legend.key.size = unit(1, 'cm'), #change legend key size
+                    legend.key.height = unit(.2, 'cm'), #change legend key height
+                    legend.key.width = unit(.2, 'cm'), #change legend key width
+                    legend.title = element_text(size=10), #change legend title font size
+                    legend.text = element_text(size=8)) #change legend text font size
+```

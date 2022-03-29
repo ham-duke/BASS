@@ -32,6 +32,7 @@ dummy_plots$ID[dummy_plots$ID==""] <- NA
 
 dummy_plots <- dummy_plots[!is.na(dummy_plots$ID),]
 
+dummy_plots <- dummy_plots[dummy_plots$Height..meters. >= 1.5,]
 
 #create df for just trees
 dummy_plots_trees <- dummy_plots %>%
@@ -114,6 +115,9 @@ dummy_plots_trees2$H <- hts
 AGB Analysis
 ```{r}
 # clean the ID 
+
+# At the species level, we leave them as separate species ? 
+
 dummy_plots_trees2$Species <-  dummy_plots_trees2$ID
 dummy_plots_trees2 <- dummy_plots_trees2 %>% separate(ID, c("Genus", "Spp"))
 dummy_plots_trees2$Spp[dummy_plots_trees2$Genus=="ECH"] <- NA
@@ -155,7 +159,7 @@ plot_abundance <- dummy_plots_trees2 %>%
   dplyr::summarise(abundance = n(),
                    mean_dbh = mean(dbh), 
                    mean_height = mean(H), 
-                   mean_agb = mean(AGBtree))
+                   agb = sum(AGBtree))
 
 #for all plots, where possible 
 dummy_plots_all <- read.csv("Data_USE_ME.csv")
@@ -179,6 +183,8 @@ structure_all <- dummy_plots_all %>%
   dplyr::summarise(meanDBH = mean(dbh),
                    meanHeight= mean(height))
 
+# also calculate basal area 
+
 structure_all <- merge(structure_all, abundance_all, by="Project_Plot")
 structure_all$Forest_Type <- c("DF", "DF","DF","DF","DF","DF","DF","DF","DF","DF","DF","DF","IF","IF","IF","IF","IF","IF")
 
@@ -201,14 +207,18 @@ abundance_lg <- dummy_plots_all %>%
 structure_all <- merge(structure_all, abundance_sm, by="Project_Plot")
 structure_all <- merge(structure_all, abundance_m, by="Project_Plot")
 structure_all <- merge(structure_all, abundance_lg, by="Project_Plot")
+
+ggplot(data= dummy_plots_all, aes(x= height))+
+  geom_histogram()+
+  theme_classic()
 ```
 
 Diversity Analysis
 ```{r}
-hill_dat <- data.frame(xtabs(~Project_Plot + Species, data = dummy_plots_trees2))
+hill_dat <- data.frame(xtabs(~Project_Plot + Genus, data = dummy_plots_trees2))
 
 hill_dat2 <- hill_dat %>% 
-  pivot_wider(names_from = "Species", values_from = "Freq")
+  pivot_wider(names_from = "Genus", values_from = "Freq")
 class(hill_dat2)
 hill_dat2_list <- as.list(hill_dat2)
 
@@ -225,9 +235,11 @@ hill2 <- hill %>%
 colnames(hill2)[1] <- "Project_Plot"
 
 summary_stats <- merge(hill2, plot_abundance, by="Project_Plot")
-colnames(summary_stats)[2] <- "Species_Richness"
+colnames(summary_stats)[2] <- "Genus_Richness"
 colnames(summary_stats)[3] <- "Shannon_Diversity"
 colnames(summary_stats)[4] <- "Simpson_Diversity"
+
+
 ```
 
 ```{r Structure Figures}

@@ -173,9 +173,12 @@ names(dummy_plots_all)[4]<- "dbh"
 names(dummy_plots_all)[5]<- "height"
 dummy_plots_all <- dummy_plots_all[dummy_plots_all$Project_Plot!="_",]
 
+dummy_plots_all$BA <- ((dummy_plots_all$dbh/2)^2)*pi 
+
 abundance_all <- dummy_plots_all %>%
   group_by(Project_Plot)%>%
-  dplyr::summarise(abundance = n())
+  dplyr::summarise(abundance = n(),
+                   BA = sum(BA))
 
 structure_all <- dummy_plots_all %>%
   drop_na(dbh, height)%>%

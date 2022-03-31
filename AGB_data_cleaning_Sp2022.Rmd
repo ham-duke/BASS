@@ -289,7 +289,7 @@ colnames(AGB.sp22.data.raw)
 
 colnames(AGB.sp22.data.subset) = c("E","Data_entry","Date..dd.mm.yyyy.","File_name", "Date..dd.mm.yyyy..1", "Note_taker", "Project","Plot", "Grid", "TAG_SUM", "Plant_tag", "X_coord", "Y_coord", "Tool", "POM", "DBH..mm.", "Height..meters.", "Type_Field", "Note_Field", "ID", "Treatment")
 
-write.csv(AGB.sp22.data.subset, file = "Cleaner_Data_for_Camille.csv")
+write.csv(AGB.sp22.data.subset, file = "Cleaner_Data_for_Camille.csv", row.names = FALSE)
 
 
 ```

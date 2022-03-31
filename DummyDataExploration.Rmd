@@ -111,7 +111,6 @@ dummy_plots_trees2$H <- hts
 ```
 
 
-
 AGB Analysis
 ```{r}
 # clean the ID 
@@ -245,6 +244,7 @@ ggplot(data= dummy_plots_all, aes(x= height))+
   theme_classic()
 ```
 
+
 Diversity Analysis
 ```{r}
 hill_dat <- data.frame(xtabs(~Project_Plot + Genus, data = dummy_plots_trees2))
@@ -282,13 +282,18 @@ agb_plot <- ggplot(data=summary_stats, aes(x=Distance, y=agb))+
   geom_point()+
   theme_classic()+
   ylab("AGB (Mg/Plot)")+
-  xlab("Distance From Makokou")
+  xlab("Distance From Makokou (Km)")+ 
+  annotate(geom="text", x=37, y=13000, label="cor = -0.734 , p = 0.096",
+              color="forestgreen")+
+  geom_smooth(method="lm", se=FALSE, color="forestgreen")
 
 diversity_plot <- ggplot(data=summary_stats, aes(x=Distance, y=Shannon_Diversity))+
   geom_point()+
   theme_classic()+
-  ylab("Shannon's Genus Diversity Index")+
-  xlab("Distance From Makokou")
+  ylab("Shannon's Genus Diversity")+
+  xlab("Distance From Makokou (Km)")+ 
+  annotate(geom="text", x=37, y=32, label="No Relationship",
+              color="forestgreen")
 
 diversity_plot <- ggarrange(agb_plot, diversity_plot, labels=c("a", "b"), nrow=2)
 
@@ -380,7 +385,7 @@ height_plot <- ggplot(data=structure_all, aes( x= Forest_Type, y=meanHeight))+
 
 dbh_plot <- ggplot(data=structure_all, aes( x= Forest_Type, y=meanDBH))+
   geom_boxplot(fill = c("darkorange3","forestgreen"))+
-  ylab("Mean Height (m)")+
+  ylab("DBH (cm)")+
   xlab("Forest Type")+
   theme(axis.text.x = element_text(color="black"),
           axis.text.y = element_text(color="black"))

@@ -271,6 +271,22 @@ colnames(summary_stats)[2] <- "Genus_Richness"
 colnames(summary_stats)[3] <- "Shannon_Diversity"
 colnames(summary_stats)[4] <- "Simpson_Diversity"
 
+summary_stats <- summary_stats[-1,]
+summary_stats$Distance <- c(21.23328,10.3114,10.48211,26.05005,25.86999,40.83798)
+
+cor(summary_stats$Distance, summary_stats$Shannon_Diversity)
+cor(summary_stats$Distance, summary_stats$agb)
+cor(summary_stats$Distance, summary_stats$Genus_Richness)
+
+agb_plot <- ggplot(data=summary_stats, aes(x=Distance, y=agb))+
+  geom_point()+
+  theme_classic()
+
+diversity_plot <- ggplot(data=summary_stats, aes(x=Distance, y=Shannon_Diversity))+
+  geom_point()+
+  theme_classic()
+
+ggarrange(agb_plot, diversity_plot, labels=c("a", "b"), nrow=2)
 
 ```
 

@@ -40,12 +40,11 @@ unique(AGB.sp22.data$Proj.Plot) #only data for 6 plots in data frame
 #subset data
 colnames(AGB.sp22.data)
 AGB.sp22.data.subset <- AGB.sp22.data %>%
-  select(E, Date..dd.mm.yyyy..1,Proj.Plot,Grid, Plant_tag, X_coord, Y_coord, Tool, POM, DBH..mm., Height..meters.,Type_Field, Note_Field, ID, Treatment)
+  select(E, Date..dd.mm.yyyy..1,Proj.Plot,Grid, Plant_tag, X_coord, Y_coord, Tool, POM, DBH..mm., Height..meters.,Type_Field, Note_Field, ID)
 colnames(AGB.sp22.data.subset)
-##QUESTION FOR VINCENT - What is treatment? 
 
 #column names 
-colnames(AGB.sp22.data.subset) = c("Data_Collection_Season", "Date", "Proj.Plot", "Grid", "Plant_tag", "X_Coord", "Y_Coord", "Tool", "POM", "DBH_mm", "Height_m", "Veg_Type", "Notes", "ID", "Treatment")
+colnames(AGB.sp22.data.subset) = c("Data_Collection_Season", "Date", "Proj.Plot", "Grid", "Plant_tag", "X_Coord", "Y_Coord", "Tool", "POM", "DBH_mm", "Height_m", "Veg_Type", "Notes", "ID")
 
 ```
 
@@ -266,4 +265,17 @@ AGB.sp22.data.subset$Spp.match <-
 
 sort(unique(AGB.sp22.data.subset$ID))
 #617 IDs 
+```
+
+```{r}
+typeof(AGB.sp22.data.subset$Spp.match)
+
+colnames(AGB.sp22.data.subset)
+
+AGB.sp22.data.subset <- AGB.sp22.data.subset %>%
+  select(Data_Collection_Season:ID)
+
+write.csv(AGB.sp22.data.subset, file = "Cleaner_Data_for_Camille.csv")
+
+
 ```

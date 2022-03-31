@@ -5,26 +5,195 @@ date: "3/31/2022"
 output: html_document
 ---
 
+## Load packages and data
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(GGally)
+library(MuMIn)
 ```
 
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
+```{r load-data}
+setwd("~/bass")
+Atanga_Longhi <- read.csv("Atanga_Longhi.csv", header = T, na.string = "")
 ```
 
-## Including Plots
+## Clean Data
 
-You can also embed plots, for example:
+```{r no-nas}
+sapply(Atanga_Longhi, class)
 
-```{r pressure, echo=FALSE}
-plot(pressure)
+Atanga_Longhi$Ethnicity[Atanga_Longhi$village %in% c("Indombo", 
+                                             "Mayela I", 
+                                             "Bombenda", 
+                                             "Massaha", 
+                                             "Etakaniabe")] <- "Kota"
+
+Atanga_Longhi$Ethnicity[Atanga_Longhi$village %in% c("Nsiete", 
+                                             "Ntenkele")] <- "Fang"
+
+Atanga_Longhi <- na.omit(Atanga_Longhi)
+```
+ 
+## Atanga Models
+
+```{r atanga1}
+atanga1 <- glm(Atanga ~ Distance + 
+                 factor(Ethnicity) + 
+                 factor(Gender) + 
+                 factor(Age) + 
+                 factor(Farmer) + 
+                 factor(Hunter), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(atanga1)
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+(omit gender)
+
+```{r atanga2}
+atanga2 <- glm(Atanga ~ Distance + 
+                 factor(Ethnicity) + 
+                 factor(Age) + 
+                 factor(Farmer) + 
+                 factor(Hunter), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(atanga2)
+```
+
+(omit age)
+
+```{r atanga3}
+atanga3 <- glm(Atanga ~ Distance + 
+                 factor(Ethnicity) + 
+                 factor(Farmer) + 
+                 factor(Hunter), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(atanga3)
+```
+
+(omit ethnicity)
+
+```{r atanga4}
+atanga4 <- glm(Atanga ~ Distance + 
+                 factor(Farmer) + 
+                 factor(Hunter), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(atanga4)
+```
+Everything except for "Hunter" got LESS significant here; taking out farmer. 
+
+```{r atanga5}
+atanga5 <- glm(Atanga ~ Distance + 
+                 factor(Hunter), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(atanga5)
+```
+(omit distance)
+
+```{r atanga6}
+atanga6 <- glm(Atanga ~ factor(Hunter), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(atanga6)
+```
+Hunter and intercept both significant!
+
+```{r atanga-aic}
+AIC(atanga1, atanga2, atanga3, atanga4, atanga5, atanga6)
+
+AICc(atanga1, atanga2, atanga3, atanga4, atanga5, atanga6)
+```
+
+### atanga5 (Hunter, Distance) has the lowest AIC!
+
+## Longhi Models
+
+```{r longhi1}
+longhi1 <- glm(Longhi ~ Distance + 
+                 factor(Ethnicity) + 
+                 factor(Gender) + 
+                 factor(Age) + 
+                 factor(Farmer) + 
+                 factor(Hunter), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(longhi1)
+```
+
+(omit gender)
+
+```{r longhi2}
+longhi2 <- glm(Longhi ~ Distance + 
+                 factor(Ethnicity) + 
+                 factor(Age) + 
+                 factor(Farmer) + 
+                 factor(Hunter), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(longhi2)
+```
+
+(omit hunter)
+
+```{r longhi3}
+longhi3 <- glm(Longhi ~ Distance + 
+                 factor(Ethnicity) + 
+                 factor(Age) + 
+                 factor(Farmer), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(longhi3)
+```
+
+(omit distance)
+
+```{r longhi4}
+longhi4 <- glm(Longhi ~ factor(Ethnicity) + 
+                 factor(Age) + 
+                 factor(Farmer), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(longhi4)
+```
+
+(omit farmer)
+
+```{r longhi5}
+longhi5 <- glm(Longhi ~ factor(Ethnicity) + 
+                 factor(Age), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(longhi5)
+```
+One level of age is significant, and one isn't.
+
+```{r longhi6}
+longhi6 <- glm(Longhi ~ factor(Ethnicity), 
+               family = binomial, 
+               data = Atanga_Longhi)
+
+summary(longhi6)
+```
+Nothing significant anymore!
+
+```{r longhi-aic}
+AIC(longhi1, longhi2, longhi3, longhi4, longhi5, longhi6)
+AICc(longhi1, longhi2, longhi3, longhi4, longhi5, longhi6)
+```
+### longhi5 (Ethnicity, Age) is the best model!

@@ -274,19 +274,23 @@ colnames(summary_stats)[4] <- "Simpson_Diversity"
 summary_stats <- summary_stats[-1,]
 summary_stats$Distance <- c(21.23328,10.3114,10.48211,26.05005,25.86999,40.83798)
 
-cor(summary_stats$Distance, summary_stats$Shannon_Diversity)
-cor(summary_stats$Distance, summary_stats$agb)
-cor(summary_stats$Distance, summary_stats$Genus_Richness)
+cor.test(summary_stats$Distance, summary_stats$Shannon_Diversity)
+cor.test(summary_stats$Distance, summary_stats$agb)
+cor.test(summary_stats$Distance, summary_stats$Genus_Richness)
 
 agb_plot <- ggplot(data=summary_stats, aes(x=Distance, y=agb))+
   geom_point()+
-  theme_classic()
+  theme_classic()+
+  ylab("AGB (Mg/Plot)")+
+  xlab("Distance From Makokou")
 
 diversity_plot <- ggplot(data=summary_stats, aes(x=Distance, y=Shannon_Diversity))+
   geom_point()+
-  theme_classic()
+  theme_classic()+
+  ylab("Shannon's Genus Diversity Index")+
+  xlab("Distance From Makokou")
 
-ggarrange(agb_plot, diversity_plot, labels=c("a", "b"), nrow=2)
+diversity_plot <- ggarrange(agb_plot, diversity_plot, labels=c("a", "b"), nrow=2)
 
 ```
 

@@ -113,10 +113,10 @@ cleaner_plots_trees <- cleaner_plots_trees[cleaner_plots_trees$Project_Plot!="_"
 
 Height models 
 ```{r}
- hplots <- unique(dummy_plots_trees$Project_Plot)
+ hplots <- unique(cleaner_plots_trees$Project_Plot)
   output <- list()
   
-height_no <- dummy_plots_trees %>%
+height_no <- cleaner_plots_trees %>%
   drop_na(height)%>%
   group_by(Project_Plot)%>%
   summarise(n_height=length(height))
@@ -135,9 +135,9 @@ Hcalc <- function(ddat, hdat, x){
                            H = predHt$H, dat = ddat)
 }
 
-all_hts <- lapply(1:length(unique(dummy_plots_trees$Project_Plot)), function(x) output[[x]] = Hcalc(ddat = 
-                                                    dummy_plots_trees[dummy_plots_trees$Project_Plot == hplots[[x]], ], 
-                                                    hdat = dummy_plots_trees[dummy_plots_trees$Project_Plot == hplots[[x]],], 
+all_hts <- lapply(1:length(unique(cleaner_plots_trees$Project_Plot)), function(x) output[[x]] = Hcalc(ddat = 
+                                                    cleaner_plots_trees[cleaner_plots_trees$Project_Plot == hplots[[x]], ], 
+                                                    hdat = cleaner_plots_trees[cleaner_plots_trees$Project_Plot == hplots[[x]],], 
                                                     x))
 rsq <- unlist(lapply(all_hts, `[[`, "rsq"))
 rse <- unlist(lapply(all_hts, `[[`, "rse"))
@@ -145,12 +145,12 @@ mod <- unlist(lapply(all_hts, `[[`, "mod"))
 hts <- unlist(lapply(all_hts, `[[`, "H"))
 data <- unlist(lapply(all_hts, `[[`, "dat"))
 
-dummy_plots_trees2 <- data.frame(do.call("rbind", (lapply(all_hts, `[[`, "dat"))))
+cleaner_plots_trees2 <- data.frame(do.call("rbind", (lapply(all_hts, `[[`, "dat"))))
 
 length(hts)
 
 
-dummy_plots_trees2$H <- hts 
+cleaner_plots_trees2$H <- hts 
 
 
 ```
@@ -162,35 +162,35 @@ AGB Analysis
 
 # At the species level, we leave them as separate species ? 
 
-dummy_plots_trees2$Species <-  dummy_plots_trees2$ID
-dummy_plots_trees2 <- dummy_plots_trees2 %>% separate(ID, c("Genus", "Spp"))
-dummy_plots_trees2$Spp[dummy_plots_trees2$Genus=="ECH"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Genus=="ECH"] <- NA
-dummy_plots_trees2$Genus[dummy_plots_trees2$Genus=="ECH"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="sp"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="sp"] <- NA
-dummy_plots_trees2$Spp[dummy_plots_trees2$Spp=="sp"] <- NA
-dummy_plots_trees2$Spp[dummy_plots_trees2$Genus=="Morpho"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Genus=="Morpho"] <- NA
-dummy_plots_trees2$Genus[dummy_plots_trees2$Genus=="Morpho"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="1"] <- NA
-dummy_plots_trees2$Spp[dummy_plots_trees2$Spp=="1"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="3"] <- NA
-dummy_plots_trees2$Spp[dummy_plots_trees2$Spp=="3"] <- NA
-dummy_plots_trees2$Species <- gsub(" ", "_", dummy_plots_trees2$Species)
+cleaner_plots_trees2$Species <-  cleaner_plots_trees2$ID
+cleaner_plots_trees2 <- cleaner_plots_trees2 %>% separate(ID, c("Genus", "Spp"))
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Genus=="ECH"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Genus=="ECH"] <- NA
+cleaner_plots_trees2$Genus[cleaner_plots_trees2$Genus=="ECH"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Spp=="sp"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Spp=="sp"] <- NA
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Spp=="sp"] <- NA
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Genus=="Morpho"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Genus=="Morpho"] <- NA
+cleaner_plots_trees2$Genus[cleaner_plots_trees2$Genus=="Morpho"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Spp=="1"] <- NA
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Spp=="1"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Spp=="3"] <- NA
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Spp=="3"] <- NA
+cleaner_plots_trees2$Species <- gsub(" ", "_", cleaner_plots_trees2$Species)
 
-#dummy_plots_trees3 <- dummy_plots_trees2[dummy_plots_trees2$Genus!="Liane",]
+#cleaner_plots_trees3 <- cleaner_plots_trees2[cleaner_plots_trees2$Genus!="Liane",]
 
 #get wood density
-WdDen <- getWoodDensity(genus = dummy_plots_trees2$Genus,
-          species = dummy_plots_trees2$Species,
-          stand = dummy_plots_trees2$Project_Plot)
+WdDen <- getWoodDensity(genus = cleaner_plots_trees2$Genus,
+          species = cleaner_plots_trees2$Species,
+          stand = cleaner_plots_trees2$Project_Plot)
 
-dummy_plots_trees2$meanWD <- WdDen$meanWD
-dummy_plots_trees2$sdWD <- WdDen$sdWD
+cleaner_plots_trees2$meanWD <- WdDen$meanWD
+cleaner_plots_trees2$sdWD <- WdDen$sdWD
 
 #calculate AGB for trees
-dummy_plots_trees2$AGBtree <- computeAGB(D = dummy_plots_trees2$dbh, WD = dummy_plots_trees2$meanWD, H = dummy_plots_trees2$H)
+cleaner_plots_trees2$AGBtree <- computeAGB(D = cleaner_plots_trees2$dbh, WD = cleaner_plots_trees2$meanWD, H = cleaner_plots_trees2$H)
 
 ```
 
@@ -292,9 +292,12 @@ ggplot(data= dummy_plots_all, aes(x= height))+
 
 Diversity Analysis
 ```{r}
-hill_dat <- data.frame(xtabs(~Project_Plot + Genus, data = dummy_plots_trees2))
+hill_dat <- data.frame(xtabs(~Project_Plot + Genus, data = cleaner_plots_trees2))
+
+hill_dat$Genus[hill_dat$Genus==""]<-NA
 
 hill_dat2 <- hill_dat %>% 
+  drop_na(Genus)%>%
   pivot_wider(names_from = "Genus", values_from = "Freq")
 class(hill_dat2)
 hill_dat2_list <- as.list(hill_dat2)
@@ -328,7 +331,7 @@ agb_plot <- ggplot(data=summary_stats, aes(x=Distance, y=agb))+
   theme_classic()+
   ylab("AGB (Mg/Plot)")+
   xlab("Distance From Makokou (Km)")+ 
-  annotate(geom="text", x=37, y=13000, label="cor = -0.734 , p = 0.096",
+  annotate(geom="text", x=37, y=13000, label="cor = -0.735 , p = 0.096",
               color="forestgreen")+
   geom_smooth(method="lm", se=FALSE, color="forestgreen")
 
@@ -425,6 +428,7 @@ height_plot <- ggplot(data=structure_all, aes( x= Forest_Type, y=meanHeight))+
   geom_boxplot(fill = c("darkorange3","forestgreen"))+
   ylab("Mean Height (m)")+
   xlab("Forest Type")+
+  theme_classic()+
   theme(axis.text.x = element_text(color="black"),
           axis.text.y = element_text(color="black"))
 
@@ -432,6 +436,7 @@ dbh_plot <- ggplot(data=structure_all, aes( x= Forest_Type, y=meanDBH))+
   geom_boxplot(fill = c("darkorange3","forestgreen"))+
   ylab("DBH (cm)")+
   xlab("Forest Type")+
+  theme_classic()+
   theme(axis.text.x = element_text(color="black"),
           axis.text.y = element_text(color="black"))
 

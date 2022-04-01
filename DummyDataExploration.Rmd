@@ -19,6 +19,7 @@ pacman::p_load(ggplot2, knitr, BIOMASS, dplyr, data.table, gdata,
 
 #load data
 dummy_plots <- read.csv("Data_USE_ME.csv")
+cleaner_plots <- read.csv("~/Documents/GitHub/BASS/Cleaner_Data_for_Camille.csv")
 bioclim_data <- read.csv("worldclim_bass.csv")
 
 ```
@@ -67,6 +68,49 @@ dummy_plots_trees <- dummy_plots_trees[dummy_plots_trees$Project_Plot!="_",]
 
 ```
 
+```{r For the Cleaner Plots}
+dim(cleaner_plots)
+colnames(cleaner_plots)
+
+cleaner_plots$ID[cleaner_plots$ID=="#N/A"] <- NA
+cleaner_plots$ID[cleaner_plots$ID==""] <- NA
+
+cleaner_plots <- cleaner_plots[!is.na(cleaner_plots$ID),]
+
+cleaner_plots <- cleaner_plots[cleaner_plots$Height..meters. >= 1.5,]
+
+#create df for just trees
+cleaner_plots_trees <- cleaner_plots %>%
+  filter(Type_Field != "Liana")%>%
+  select(Project, Plot, Grid, TAG_SUM, DBH..mm., Height..meters., ID)%>%
+  mutate(Project2 = Project)%>%
+  unite("Project_Plot", Project:Plot)
+names(cleaner_plots_trees)[4]<- "dbh"
+names(cleaner_plots_trees)[5]<- "height"
+
+#create liana data
+cleaner_plots_liana <- cleaner_plots %>%
+  filter(Type_Field == "Liana")%>%
+  select(Project, Plot, Grid, TAG_SUM, DBH..mm., Height..meters.)%>%
+  mutate(Project2 = Project)%>%
+  unite("Project_Plot", Project:Plot)
+names(cleaner_plots_liana)[4]<- "dbh"
+names(cleaner_plots_liana)[5]<- "height"
+
+#visually explore data
+
+ggplot(data = cleaner_plots_trees, aes(x=dbh))+
+  geom_histogram()
+
+ggplot(data = cleaner_plots_trees, aes(x=height))+
+  geom_histogram()
+
+summary(cleaner_plots_trees)
+
+unique(cleaner_plots$Project_Plot)
+cleaner_plots_trees <- cleaner_plots_trees[cleaner_plots_trees$Project_Plot!="_",]
+```
+
 Height models 
 ```{r}
  hplots <- unique(dummy_plots_trees$Project_Plot)
@@ -104,6 +148,7 @@ data <- unlist(lapply(all_hts, `[[`, "dat"))
 dummy_plots_trees2 <- data.frame(do.call("rbind", (lapply(all_hts, `[[`, "dat"))))
 
 length(hts)
+
 
 dummy_plots_trees2$H <- hts 
 

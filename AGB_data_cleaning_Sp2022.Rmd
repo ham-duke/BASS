@@ -26,25 +26,31 @@ clean.spp.list <- read.csv("clean_spp_list.csv") %>%
 #using plots: "DF3B", "DF5A", "DF5B", "DF6A", "DF6B" and "IF2A"
 
 #exploring groups within project and plot columns
-unique(AGB.sp22.data.raw$Project)
-unique(AGB.sp22.data.raw$Plot)
+#unique(AGB.sp22.data.raw$Project)
+#unique(AGB.sp22.data.raw$Plot)
 
 #filter data for only our 6 plots
-AGB.sp22.data <- AGB.sp22.data.raw %>%
-  unite("Proj.Plot", Project:Plot, remove=F) %>%
-    filter(Proj.Plot %in% c("DF_3B", "DF_5A", "DF_5B", "DF_6A", "DF_6B", "IF_2A"))
+#AGB.sp22.data <- AGB.sp22.data.raw %>%
+ # unite("Proj.Plot", Project:Plot, remove=F) %>%
+  #  filter(Proj.Plot %in% c("DF_3B", "DF_5A", "DF_5B", "DF_6A", "DF_6B", "IF_2A"))
 
 #check row names of Proj.Plot
-unique(AGB.sp22.data$Proj.Plot) #only data for 6 plots in data frame
+#unique(AGB.sp22.data$Proj.Plot) #only data for 6 plots in data frame
 
 #subset data
-colnames(AGB.sp22.data)
-AGB.sp22.data.subset <- AGB.sp22.data %>%
-  select(E, Date..dd.mm.yyyy..1,Proj.Plot,Grid, Plant_tag, X_coord, Y_coord, Tool, POM, DBH..mm., Height..meters.,Type_Field, Note_Field, ID)
+colnames(AGB.sp22.data.raw)
+AGB.sp22.data.subset <- AGB.sp22.data.raw
 colnames(AGB.sp22.data.subset)
+#AGB.sp22.data.subset <- AGB.sp22.data %>%
+  #select(E, Date..dd.mm.yyyy..1,Proj.Plot,Grid, Plant_tag, X_coord, Y_coord, Tool, POM, DBH..mm., Height..meters.,Type_Field, Note_Field, ID)
+#colnames(AGB.sp22.data.subset)
 
 #column names 
-colnames(AGB.sp22.data.subset) = c("Data_Collection_Season", "Date", "Proj.Plot", "Grid", "Plant_tag", "X_Coord", "Y_Coord", "Tool", "POM", "DBH_mm", "Height_m", "Veg_Type", "Notes", "ID")
+colnames(AGB.sp22.data.subset) = c("Data_Collection_Season", "Data_entry","Date..dd.mm.yyyy.","File_name","Date","Note_taker", "Project", "Plot", "Grid","TAG_SUM", "Plant_tag", "X_coord", "Y_coord", "Tool", "POM", "DBH..mm.", "Height..meters.", "Veg_Type", "Notes", "ID", "Treatment")
+
+colnames(AGB.sp22.data.subset)
+
+
 
 ```
 
@@ -86,27 +92,28 @@ sum(AGB.sp22.data.subset$Grid == "H7/J8")
 AGB.sp22.data.subset$Grid[AGB.sp22.data.subset$Grid %in% c("H7/J8")] <- "H7/I8"
 
 #Plant_tag
+colnames(AGB.sp22.data.subset)
 unique(AGB.sp22.data.subset$Plant_tag)
 TAG_NUM_ID <- AGB.sp22.data.subset %>%
-  select(Proj.Plot, Grid, Plant_tag) %>%
-  unite("TAG_NUM_2", Proj.Plot:Grid:Plant_tag)
+  select(Project, Plot, Grid, Plant_tag) %>%
+  unite("TAG_NUM_2", Project:Plot:Grid:Plant_tag)
 
 Plant_tag_duplicates <- TAG_NUM_ID %>% group_by(TAG_NUM_2) %>% summarise(n=sum(n())) %>% filter(n>1)
 ##Well.... even with the most unique identifier we find 1,683 duplicates... so perhaps there was an error with data entry... either in the field or transferring between paper and database
 
 #X_coord 
-summary(AGB.sp22.data.subset$X_Coord)
+summary(AGB.sp22.data.subset$X_coord)
 #Looks ok weird that it goes above 5m, but ok 
 #why 77 NAs? 
-which(is.na(AGB.sp22.data.subset$X_Coord), arr.ind=TRUE)
+which(is.na(AGB.sp22.data.subset$X_coord), arr.ind=TRUE)
 
 #Y_coord 
-summary(AGB.sp22.data.subset$Y_Coord)
+summary(AGB.sp22.data.subset$Y_coord)
 #Looks weirder max at 7...?
-which(is.na(AGB.sp22.data.subset$Y_Coord), arr.ind=TRUE)
-which(AGB.sp22.data.subset$Y_Coord > "5.0")
+which(is.na(AGB.sp22.data.subset$Y_coord), arr.ind=TRUE)
+which(AGB.sp22.data.subset$Y_coord > "5.0")
 #80 NAs
-which(is.na(AGB.sp22.data.subset$Y_Coord), arr.ind=TRUE)
+which(is.na(AGB.sp22.data.subset$Y_coord), arr.ind=TRUE)
 
 #Tool
 unique(AGB.sp22.data.subset$Tool)
@@ -118,20 +125,22 @@ summary(AGB.sp22.data.subset$POM)
 #seems reasonable but the 154 NAs are meh 
 
 #DBH_mm
-summary(AGB.sp22.data.subset$DBH_mm)
+summary(AGB.sp22.data.subset$DBH..mm.)
 #the largest is 2600mm is this reasonable? 
 #19 NAs will need to take out then to properly clean 
 
 #Height_mm
-summary(AGB.sp22.data.subset$Height_m)
+summary(AGB.sp22.data.subset$Height..meters.)
 #NAs ok can make model 
-class(AGB.sp22.data.subset$Height_m)
-nrow(AGB.sp22.data.subset[AGB.sp22.data.subset$Height_m <1.5,])
+class(AGB.sp22.data.subset$Height..meters.)
+nrow(AGB.sp22.data.subset[AGB.sp22.data.subset$Height..meters. <1.5,])
 #should we remove the little ones? They are just taken from the quadrats where we did the little plant sampling.
 
 #Veg_Type
 unique(AGB.sp22.data.subset$Veg_Type)
 AGB.sp22.data.subset$Veg_Type[AGB.sp22.data.subset$Veg_Type %in% c("tree","TREE")] <- "Tree"
+AGB.sp22.data.subset$Veg_Type[AGB.sp22.data.subset$Veg_Type %in% c("sapling")] <- "Sapling"
+
 #What should we do about Marantaceae and HRB? 
 
 #Notes
@@ -139,7 +148,6 @@ unique(AGB.sp22.data.subset$Notes)
 
 #Treatment
 unique(AGB.sp22.data.subset$Treatment)
-#Not certain what these are still?
 
 ```
 
@@ -273,9 +281,15 @@ typeof(AGB.sp22.data.subset$Spp.match)
 colnames(AGB.sp22.data.subset)
 
 AGB.sp22.data.subset <- AGB.sp22.data.subset %>%
-  select(Data_Collection_Season:ID)
+  select(Data_Collection_Season:Treatment)
 
-write.csv(AGB.sp22.data.subset, file = "Cleaner_Data_for_Camille.csv")
+colnames(AGB.sp22.data.subset)
+
+colnames(AGB.sp22.data.raw)
+
+colnames(AGB.sp22.data.subset) = c("E","Data_entry","Date..dd.mm.yyyy.","File_name", "Date..dd.mm.yyyy..1", "Note_taker", "Project","Plot", "Grid", "TAG_SUM", "Plant_tag", "X_coord", "Y_coord", "Tool", "POM", "DBH..mm.", "Height..meters.", "Type_Field", "Note_Field", "ID", "Treatment")
+
+write.csv(AGB.sp22.data.subset, file = "Cleaner_Data_for_Camille.csv", row.names = FALSE)
 
 
 ```

@@ -407,25 +407,26 @@ mutate(se = sd / sqrt(n),
          upper.ci = value + qt(1 - (0.05 / 2), n - 1) * se)
 
 abundance <- ggplot(data=abundance_dat1_sd, aes(x= SizeClass, y= value, fill=`Forest Type`))+
-  geom_col(position="dodge")+
+  geom_col(position="dodge", color= c("darkorange3","darkorange3","darkorange3","darkorange3","forestgreen","forestgreen","forestgreen","forestgreen"))+
   theme_classic()+
   ylab("Abundance (Individuals)")+
   xlab("Tree Size Class")+
-  scale_fill_manual(values = c("darkorange3","forestgreen"))+
-  geom_errorbar(aes(ymin = lower.ci, ymax = upper.ci), width = 0.2, position=position_dodge(0.85)) 
+  scale_fill_manual(values = alpha(c("darkorange3","forestgreen"), 0.3))+
+  geom_errorbar(aes(ymin = lower.ci, ymax = upper.ci), width = 0.2, position=position_dodge(0.85), color= c("darkorange3","darkorange3","darkorange3","darkorange3","forestgreen","forestgreen","forestgreen","forestgreen")) 
 
 
 basal_area <- ggplot(data=abundance_dat2_sd, aes(x= SizeClass, y= value, fill=`Forest Type`))+
-  geom_col(position="dodge")+
+  geom_col(position="dodge", color= c("darkorange3","darkorange3","darkorange3","darkorange3","forestgreen","forestgreen","forestgreen","forestgreen"))+
   theme_classic()+
   ylab(expression("Basal Area"~ "("~ m^2~")"))+
   xlab("Tree Size Class")+
-  scale_fill_manual(values = c("darkorange3","forestgreen"))+
-  geom_errorbar(aes(ymin = lower.ci, ymax = upper.ci), width = 0.2, position=position_dodge(0.85)) 
+  scale_fill_manual(values = alpha(c("darkorange3","forestgreen"), 0.3))+
+  scale_color_manual()+
+  geom_errorbar(aes(ymin = lower.ci, ymax = upper.ci), width = 0.2, position=position_dodge(0.85), color= c("darkorange3","darkorange3","darkorange3","darkorange3","forestgreen","forestgreen","forestgreen","forestgreen")) 
 
 
 height_plot <- ggplot(data=structure_all, aes( x= Forest_Type, y=meanHeight))+
-  geom_boxplot(fill = c("darkorange3","forestgreen"))+
+  geom_boxplot(fill = alpha(c("darkorange3","forestgreen"),0.3), color= c("darkorange3","forestgreen"))+
   ylab("Mean Height (m)")+
   xlab("Forest Type")+
   theme_classic()+
@@ -433,7 +434,7 @@ height_plot <- ggplot(data=structure_all, aes( x= Forest_Type, y=meanHeight))+
           axis.text.y = element_text(color="black"))
 
 dbh_plot <- ggplot(data=structure_all, aes( x= Forest_Type, y=meanDBH))+
-  geom_boxplot(fill = c("darkorange3","forestgreen"))+
+  geom_boxplot(fill = alpha(c("darkorange3","forestgreen"),0.3), color= c("darkorange3","forestgreen"))+
   ylab("DBH (cm)")+
   xlab("Forest Type")+
   theme_classic()+
@@ -465,4 +466,49 @@ print(bioclim.pca)
 summary(bioclim.pca) 
 
 ```
-edit
+
+social team figure
+```{r}
+observation1 <- seq(1:37)
+tree_part <- c(rep("Fruit", 14),rep("Bark",11), "Wood", rep("Not Mentioned", 11))
+color1 <- c(rep("green",26), rep("orange", 11))
+tree_part_df <- as.data.frame(cbind(observation1, tree_part, color1))
+
+tree_part_df$tree_part <-factor(tree_part_df$tree_part, levels= c("Fruit","Bark",  "Wood", "Not Mentioned"))
+
+tree_part_plot <- ggplot(data=tree_part_df, aes(x=tree_part, fill=color1))+
+  geom_bar(color=c("forestgreen","forestgreen","forestgreen","darkorange3"))+
+  theme_classic()+
+  scale_fill_manual(values = alpha(c("forestgreen","darkorange3"), 0.3))+
+  ylab("Number of Mentions")+
+  xlab("Tree Part")+ 
+  theme(legend.position = "none")+
+  annotate(geom="text", x=1, y=15, label="14", color="forestgreen")+
+  annotate(geom="text", x=2, y=12, label="11", color="forestgreen")+
+  annotate(geom="text", x=3, y=2, label="1", color="forestgreen")+
+  annotate(geom="text", x=4, y=12, label="11", color="darkorange3")
+
+
+observation2 <- seq(1:33)
+use <- c(rep("Food", 9),rep("Medicine",5), "Cleaning","Building", rep("Not Mentioned", 17))
+color2 <- c(rep("green",16), rep("orange", 17))
+use_df <- as.data.frame(cbind(observation2, use, color2))
+
+use_df$use <-factor(use_df$us, levels= c("Food", "Medicine", "Building", "Cleaning", "Not Mentioned"))
+
+use_plot <- ggplot(data=use_df, aes(x=use, fill=color2))+
+  geom_bar(color=c("forestgreen","forestgreen","forestgreen","forestgreen","darkorange3"))+
+  theme_classic()+
+  scale_fill_manual(values = alpha(c("forestgreen","darkorange3"), 0.3))+
+  ylab("Number of Mentions")+
+  xlab("Use")+ 
+  theme(legend.position = "none")+
+  annotate(geom="text", x=1, y=10, label="9", color="forestgreen")+
+  annotate(geom="text", x=2, y=6, label="5", color="forestgreen")+
+  annotate(geom="text", x=3, y=2, label="1", color="forestgreen")+
+  annotate(geom="text", x=4, y=2, label="1", color="forestgreen")+
+  annotate(geom="text", x=5, y=18, label="17", color="darkorange3")
+
+social_plots <- ggarrange(tree_part_plot, use_plot, labels=c("a", "b"))
+```
+

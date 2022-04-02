@@ -335,15 +335,15 @@ agb_plot <- ggplot(data=summary_stats, aes(x=Distance, y=agb))+
               color="forestgreen")+
   geom_smooth(method="lm", se=FALSE, color="forestgreen")
 
-diversity_plot <- ggplot(data=summary_stats, aes(x=Distance, y=Shannon_Diversity))+
+richness_plot <- ggplot(data=summary_stats, aes(x=Distance, y=Genus_Richness))+
   geom_point()+
   theme_classic()+
-  ylab("Shannon's Genus Diversity")+
+  ylab("Genus Richness")+
   xlab("Distance From Makokou (Km)")+ 
-  annotate(geom="text", x=37, y=32, label="No Relationship",
+  annotate(geom="text", x=37, y=90, label="No Relationship",
               color="forestgreen")
 
-diversity_plot <- ggarrange(agb_plot, diversity_plot, labels=c("a", "b"), nrow=2)
+diversity_plot <- ggarrange(agb_plot, richness_plot, labels=c("a", "b"), nrow=2)
 
 ```
 

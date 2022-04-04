@@ -490,11 +490,11 @@ tree_part_plot <- ggplot(data=tree_part_df, aes(x=tree_part, fill=color1))+
 
 
 observation2 <- seq(1:33)
-use <- c(rep("Food", 9),rep("Medicine",5), "Cleaning","Building", rep("Not Mentioned", 17))
+use <- c(rep("Food", 9),rep("Medicine",5), "Hygiene","Building", rep("Not Mentioned", 17))
 color2 <- c(rep("green",16), rep("orange", 17))
 use_df <- as.data.frame(cbind(observation2, use, color2))
 
-use_df$use <-factor(use_df$us, levels= c("Food", "Medicine", "Building", "Cleaning", "Not Mentioned"))
+use_df$use <-factor(use_df$us, levels= c("Food", "Medicine", "Building", "Hygiene", "Not Mentioned"))
 
 use_plot <- ggplot(data=use_df, aes(x=use, fill=color2))+
   geom_bar(color=c("forestgreen","forestgreen","forestgreen","forestgreen","darkorange3"))+

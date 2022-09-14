@@ -19,6 +19,7 @@ pacman::p_load(ggplot2, knitr, BIOMASS, dplyr, data.table, gdata,
 
 #load data
 dummy_plots <- read.csv("Data_USE_ME.csv")
+cleaner_plots <- read.csv("~/Documents/GitHub/BASS/Cleaner_Data_for_Camille.csv")
 bioclim_data <- read.csv("worldclim_bass.csv")
 
 ```
@@ -32,6 +33,7 @@ dummy_plots$ID[dummy_plots$ID==""] <- NA
 
 dummy_plots <- dummy_plots[!is.na(dummy_plots$ID),]
 
+dummy_plots <- dummy_plots[dummy_plots$Height..meters. >= 1.5,]
 
 #create df for just trees
 dummy_plots_trees <- dummy_plots %>%
@@ -66,12 +68,55 @@ dummy_plots_trees <- dummy_plots_trees[dummy_plots_trees$Project_Plot!="_",]
 
 ```
 
+```{r For the Cleaner Plots}
+dim(cleaner_plots)
+colnames(cleaner_plots)
+
+cleaner_plots$ID[cleaner_plots$ID=="#N/A"] <- NA
+cleaner_plots$ID[cleaner_plots$ID==""] <- NA
+
+cleaner_plots <- cleaner_plots[!is.na(cleaner_plots$ID),]
+
+cleaner_plots <- cleaner_plots[cleaner_plots$Height..meters. >= 1.5,]
+
+#create df for just trees
+cleaner_plots_trees <- cleaner_plots %>%
+  filter(Type_Field != "Liana")%>%
+  select(Project, Plot, Grid, TAG_SUM, DBH..mm., Height..meters., ID)%>%
+  mutate(Project2 = Project)%>%
+  unite("Project_Plot", Project:Plot)
+names(cleaner_plots_trees)[4]<- "dbh"
+names(cleaner_plots_trees)[5]<- "height"
+
+#create liana data
+cleaner_plots_liana <- cleaner_plots %>%
+  filter(Type_Field == "Liana")%>%
+  select(Project, Plot, Grid, TAG_SUM, DBH..mm., Height..meters.)%>%
+  mutate(Project2 = Project)%>%
+  unite("Project_Plot", Project:Plot)
+names(cleaner_plots_liana)[4]<- "dbh"
+names(cleaner_plots_liana)[5]<- "height"
+
+#visually explore data
+
+ggplot(data = cleaner_plots_trees, aes(x=dbh))+
+  geom_histogram()
+
+ggplot(data = cleaner_plots_trees, aes(x=height))+
+  geom_histogram()
+
+summary(cleaner_plots_trees)
+
+unique(cleaner_plots$Project_Plot)
+cleaner_plots_trees <- cleaner_plots_trees[cleaner_plots_trees$Project_Plot!="_",]
+```
+
 Height models 
 ```{r}
- hplots <- unique(dummy_plots_trees$Project_Plot)
+ hplots <- unique(cleaner_plots_trees$Project_Plot)
   output <- list()
   
-height_no <- dummy_plots_trees %>%
+height_no <- cleaner_plots_trees %>%
   drop_na(height)%>%
   group_by(Project_Plot)%>%
   summarise(n_height=length(height))
@@ -90,9 +135,9 @@ Hcalc <- function(ddat, hdat, x){
                            H = predHt$H, dat = ddat)
 }
 
-all_hts <- lapply(1:length(unique(dummy_plots_trees$Project_Plot)), function(x) output[[x]] = Hcalc(ddat = 
-                                                    dummy_plots_trees[dummy_plots_trees$Project_Plot == hplots[[x]], ], 
-                                                    hdat = dummy_plots_trees[dummy_plots_trees$Project_Plot == hplots[[x]],], 
+all_hts <- lapply(1:length(unique(cleaner_plots_trees$Project_Plot)), function(x) output[[x]] = Hcalc(ddat = 
+                                                    cleaner_plots_trees[cleaner_plots_trees$Project_Plot == hplots[[x]], ], 
+                                                    hdat = cleaner_plots_trees[cleaner_plots_trees$Project_Plot == hplots[[x]],], 
                                                     x))
 rsq <- unlist(lapply(all_hts, `[[`, "rsq"))
 rse <- unlist(lapply(all_hts, `[[`, "rse"))
@@ -100,49 +145,52 @@ mod <- unlist(lapply(all_hts, `[[`, "mod"))
 hts <- unlist(lapply(all_hts, `[[`, "H"))
 data <- unlist(lapply(all_hts, `[[`, "dat"))
 
-dummy_plots_trees2 <- data.frame(do.call("rbind", (lapply(all_hts, `[[`, "dat"))))
+cleaner_plots_trees2 <- data.frame(do.call("rbind", (lapply(all_hts, `[[`, "dat"))))
 
 length(hts)
 
-dummy_plots_trees2$H <- hts 
+
+cleaner_plots_trees2$H <- hts 
 
 
 ```
 
 
-
 AGB Analysis
 ```{r}
 # clean the ID 
-dummy_plots_trees2$Species <-  dummy_plots_trees2$ID
-dummy_plots_trees2 <- dummy_plots_trees2 %>% separate(ID, c("Genus", "Spp"))
-dummy_plots_trees2$Spp[dummy_plots_trees2$Genus=="ECH"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Genus=="ECH"] <- NA
-dummy_plots_trees2$Genus[dummy_plots_trees2$Genus=="ECH"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="sp"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="sp"] <- NA
-dummy_plots_trees2$Spp[dummy_plots_trees2$Spp=="sp"] <- NA
-dummy_plots_trees2$Spp[dummy_plots_trees2$Genus=="Morpho"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Genus=="Morpho"] <- NA
-dummy_plots_trees2$Genus[dummy_plots_trees2$Genus=="Morpho"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="1"] <- NA
-dummy_plots_trees2$Spp[dummy_plots_trees2$Spp=="1"] <- NA
-dummy_plots_trees2$Species[dummy_plots_trees2$Spp=="3"] <- NA
-dummy_plots_trees2$Spp[dummy_plots_trees2$Spp=="3"] <- NA
-dummy_plots_trees2$Species <- gsub(" ", "_", dummy_plots_trees2$Species)
 
-#dummy_plots_trees3 <- dummy_plots_trees2[dummy_plots_trees2$Genus!="Liane",]
+# At the species level, we leave them as separate species ? 
+
+cleaner_plots_trees2$Species <-  cleaner_plots_trees2$ID
+cleaner_plots_trees2 <- cleaner_plots_trees2 %>% separate(ID, c("Genus", "Spp"))
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Genus=="ECH"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Genus=="ECH"] <- NA
+cleaner_plots_trees2$Genus[cleaner_plots_trees2$Genus=="ECH"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Spp=="sp"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Spp=="sp"] <- NA
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Spp=="sp"] <- NA
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Genus=="Morpho"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Genus=="Morpho"] <- NA
+cleaner_plots_trees2$Genus[cleaner_plots_trees2$Genus=="Morpho"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Spp=="1"] <- NA
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Spp=="1"] <- NA
+cleaner_plots_trees2$Species[cleaner_plots_trees2$Spp=="3"] <- NA
+cleaner_plots_trees2$Spp[cleaner_plots_trees2$Spp=="3"] <- NA
+cleaner_plots_trees2$Species <- gsub(" ", "_", cleaner_plots_trees2$Species)
+
+#cleaner_plots_trees3 <- cleaner_plots_trees2[cleaner_plots_trees2$Genus!="Liane",]
 
 #get wood density
-WdDen <- getWoodDensity(genus = dummy_plots_trees2$Genus,
-          species = dummy_plots_trees2$Species,
-          stand = dummy_plots_trees2$Project_Plot)
+WdDen <- getWoodDensity(genus = cleaner_plots_trees2$Genus,
+          species = cleaner_plots_trees2$Species,
+          stand = cleaner_plots_trees2$Project_Plot)
 
-dummy_plots_trees2$meanWD <- WdDen$meanWD
-dummy_plots_trees2$sdWD <- WdDen$sdWD
+cleaner_plots_trees2$meanWD <- WdDen$meanWD
+cleaner_plots_trees2$sdWD <- WdDen$sdWD
 
 #calculate AGB for trees
-dummy_plots_trees2$AGBtree <- computeAGB(D = dummy_plots_trees2$dbh, WD = dummy_plots_trees2$meanWD, H = dummy_plots_trees2$H)
+cleaner_plots_trees2$AGBtree <- computeAGB(D = cleaner_plots_trees2$dbh, WD = cleaner_plots_trees2$meanWD, H = cleaner_plots_trees2$H)
 
 ```
 
@@ -155,7 +203,7 @@ plot_abundance <- dummy_plots_trees2 %>%
   dplyr::summarise(abundance = n(),
                    mean_dbh = mean(dbh), 
                    mean_height = mean(H), 
-                   mean_agb = mean(AGBtree))
+                   agb = sum(AGBtree))
 
 #for all plots, where possible 
 dummy_plots_all <- read.csv("Data_USE_ME.csv")
@@ -169,9 +217,16 @@ names(dummy_plots_all)[4]<- "dbh"
 names(dummy_plots_all)[5]<- "height"
 dummy_plots_all <- dummy_plots_all[dummy_plots_all$Project_Plot!="_",]
 
+dummy_plots_all$BA <- ((dummy_plots_all$dbh/200)^2)*pi 
+
 abundance_all <- dummy_plots_all %>%
   group_by(Project_Plot)%>%
   dplyr::summarise(abundance = n())
+
+ba_all <- dummy_plots_all %>%
+  drop_na(BA)%>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise( BA = sum(BA))
 
 structure_all <- dummy_plots_all %>%
   drop_na(dbh, height)%>%
@@ -179,14 +234,19 @@ structure_all <- dummy_plots_all %>%
   dplyr::summarise(meanDBH = mean(dbh),
                    meanHeight= mean(height))
 
+# also calculate basal area 
+
 structure_all <- merge(structure_all, abundance_all, by="Project_Plot")
+structure_all <- merge(structure_all, ba_all, by="Project_Plot")
 structure_all$Forest_Type <- c("DF", "DF","DF","DF","DF","DF","DF","DF","DF","DF","DF","DF","IF","IF","IF","IF","IF","IF")
 
 #only small trees
 abundance_sm <- dummy_plots_all %>%
   filter(dbh < 30)%>%
   group_by(Project_Plot)%>%
-  dplyr::summarise(abundance_sm = n())
+  dplyr::summarise(abundance_sm = n(),
+                   abundance_sm_sd = sd(n()))
+
 #only medium trees
 abundance_m <- dummy_plots_all %>%
   filter(dbh >= 30& dbh <70)%>%
@@ -198,17 +258,47 @@ abundance_lg <- dummy_plots_all %>%
   group_by(Project_Plot)%>%
   dplyr::summarise(abundance_lg = n())
 
+#only small trees
+BA_sm <- dummy_plots_all %>%
+  filter(dbh < 30)%>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise(BA_sm = sum(BA),
+                   BA_sm_sd = sd(BA))
+#only medium trees
+BA_m <- dummy_plots_all %>%
+  filter(dbh >= 30& dbh <70)%>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise(BA_m = sum(BA),
+                   BA_m_sd = sd(BA))
+#only lg trees
+BA_lg <- dummy_plots_all %>%
+  filter(dbh >70)%>%
+  group_by(Project_Plot)%>%
+  dplyr::summarise(BA_lg = sum(BA),
+                   BA_lg_sd = sd(BA))
+
 structure_all <- merge(structure_all, abundance_sm, by="Project_Plot")
 structure_all <- merge(structure_all, abundance_m, by="Project_Plot")
 structure_all <- merge(structure_all, abundance_lg, by="Project_Plot")
+structure_all <- merge(structure_all, BA_sm, by="Project_Plot")
+structure_all <- merge(structure_all, BA_m, by="Project_Plot")
+structure_all <- merge(structure_all, BA_lg, by="Project_Plot")
+
+ggplot(data= dummy_plots_all, aes(x= height))+
+  geom_histogram()+
+  theme_classic()
 ```
+
 
 Diversity Analysis
 ```{r}
-hill_dat <- data.frame(xtabs(~Project_Plot + Species, data = dummy_plots_trees2))
+hill_dat <- data.frame(xtabs(~Project_Plot + Genus, data = cleaner_plots_trees2))
+
+hill_dat$Genus[hill_dat$Genus==""]<-NA
 
 hill_dat2 <- hill_dat %>% 
-  pivot_wider(names_from = "Species", values_from = "Freq")
+  drop_na(Genus)%>%
+  pivot_wider(names_from = "Genus", values_from = "Freq")
 class(hill_dat2)
 hill_dat2_list <- as.list(hill_dat2)
 
@@ -225,9 +315,36 @@ hill2 <- hill %>%
 colnames(hill2)[1] <- "Project_Plot"
 
 summary_stats <- merge(hill2, plot_abundance, by="Project_Plot")
-colnames(summary_stats)[2] <- "Species_Richness"
+colnames(summary_stats)[2] <- "Genus_Richness"
 colnames(summary_stats)[3] <- "Shannon_Diversity"
 colnames(summary_stats)[4] <- "Simpson_Diversity"
+
+summary_stats <- summary_stats[-1,]
+summary_stats$Distance <- c(21.23328,10.3114,10.48211,26.05005,25.86999,40.83798)
+
+cor.test(summary_stats$Distance, summary_stats$Shannon_Diversity)
+cor.test(summary_stats$Distance, summary_stats$agb)
+cor.test(summary_stats$Distance, summary_stats$Genus_Richness)
+
+agb_plot <- ggplot(data=summary_stats, aes(x=Distance, y=agb))+
+  geom_point()+
+  theme_classic()+
+  ylab("AGB (Mg/Plot)")+
+  xlab("Distance From Makokou (Km)")+ 
+  annotate(geom="text", x=37, y=13000, label="cor = -0.735 , p = 0.096",
+              color="forestgreen")+
+  geom_smooth(method="lm", se=FALSE, color="forestgreen")
+
+richness_plot <- ggplot(data=summary_stats, aes(x=Distance, y=Genus_Richness))+
+  geom_point()+
+  theme_classic()+
+  ylab("Genus Richness")+
+  xlab("Distance From Makokou (Km)")+ 
+  annotate(geom="text", x=37, y=90, label="No Relationship",
+              color="forestgreen")
+
+diversity_plot <- ggarrange(agb_plot, richness_plot, labels=c("a", "b"), nrow=2)
+
 ```
 
 ```{r Structure Figures}
@@ -257,19 +374,77 @@ ggarrange(abundance_plot, height_plot, dbh_plot, labels = c("a", "b", "c"))
 #abundance by size class
 
 abundance_dat <- structure_all %>%
-  select(abundance, abundance_sm, abundance_m, abundance_lg, Project_Plot, Forest_Type)%>%
-  pivot_longer(cols= abundance:abundance_lg, names_to = "Size Class")
-abundance_dat$`Size Class`[abundance_dat$`Size Class`=="abundance"] <- "All"
-abundance_dat$`Size Class`[abundance_dat$`Size Class`=="abundance_sm"] <- "Small"
-abundance_dat$`Size Class`[abundance_dat$`Size Class`=="abundance_m"] <- "Medium"
-abundance_dat$`Size Class`[abundance_dat$`Size Class`=="abundance_lg"] <- "Large"
+  select(abundance, abundance_sm, abundance_m, abundance_lg, Project_Plot, Forest_Type, BA, BA_sm, BA_m, BA_lg)%>%
+  pivot_longer(cols= c(abundance:abundance_lg,BA:BA_lg), names_to = "SizeClass")%>%
+  separate(SizeClass, c("Structure", "SizeClass"))
+abundance_dat$SizeClass[is.na(abundance_dat$SizeClass)]<- "All"
+abundance_dat$SizeClass[abundance_dat$SizeClass=="sm"]<- "Small"
+abundance_dat$SizeClass[abundance_dat$SizeClass=="m"]<- "Medium"
+abundance_dat$SizeClass[abundance_dat$SizeClass=="lg"]<- "Large"
+abundance_dat$Structure[abundance_dat$Structure=="abundance"]<- "Abundance"
+abundance_dat$Structure[abundance_dat$Structure=="BA"]<- "Basal Area"
+colnames(abundance_dat)[2] <- "Forest Type" 
+abundance_dat1 <- abundance_dat[abundance_dat$Structure=="Abundance",]
+abundance_dat2 <- abundance_dat[abundance_dat$Structure=="Basal Area",]
 
-ggplot(data=abundance_dat, aes(x= Forest_Type, y= value, fill=`Size Class`))+
-  geom_col(position="dodge")+
+
+abundance_dat1_sd <- abundance_dat1 %>%
+  group_by(`Forest Type`, Structure, SizeClass)%>%
+  dplyr::summarise(sd = sd(value), 
+                   value= mean(value),
+                   n= n())%>%
+mutate(se = sd / sqrt(n),
+         lower.ci = value - qt(1 - (0.05 / 2), n - 1) * se,
+         upper.ci = value + qt(1 - (0.05 / 2), n - 1) * se)
+
+abundance_dat2_sd <- abundance_dat2 %>%
+  group_by(`Forest Type`, Structure, SizeClass)%>%
+  dplyr::summarise(sd = sd(value), 
+                   value= mean(value),
+                   n= n())%>%
+mutate(se = sd / sqrt(n),
+         lower.ci = value - qt(1 - (0.05 / 2), n - 1) * se,
+         upper.ci = value + qt(1 - (0.05 / 2), n - 1) * se)
+
+abundance <- ggplot(data=abundance_dat1_sd, aes(x= SizeClass, y= value, fill=`Forest Type`))+
+  geom_col(position="dodge", color= c("darkorange3","darkorange3","darkorange3","darkorange3","forestgreen","forestgreen","forestgreen","forestgreen"))+
   theme_classic()+
-  ylab("Abundance")+
+  ylab("Abundance (Individuals)")+
+  xlab("Tree Size Class")+
+  scale_fill_manual(values = alpha(c("darkorange3","forestgreen"), 0.3))+
+  geom_errorbar(aes(ymin = lower.ci, ymax = upper.ci), width = 0.2, position=position_dodge(0.85), color= c("darkorange3","darkorange3","darkorange3","darkorange3","forestgreen","forestgreen","forestgreen","forestgreen")) 
+
+
+basal_area <- ggplot(data=abundance_dat2_sd, aes(x= SizeClass, y= value, fill=`Forest Type`))+
+  geom_col(position="dodge", color= c("darkorange3","darkorange3","darkorange3","darkorange3","forestgreen","forestgreen","forestgreen","forestgreen"))+
+  theme_classic()+
+  ylab(expression("Basal Area"~ "("~ m^2~")"))+
+  xlab("Tree Size Class")+
+  scale_fill_manual(values = alpha(c("darkorange3","forestgreen"), 0.3))+
+  scale_color_manual()+
+  geom_errorbar(aes(ymin = lower.ci, ymax = upper.ci), width = 0.2, position=position_dodge(0.85), color= c("darkorange3","darkorange3","darkorange3","darkorange3","forestgreen","forestgreen","forestgreen","forestgreen")) 
+
+
+height_plot <- ggplot(data=structure_all, aes( x= Forest_Type, y=meanHeight))+
+  geom_boxplot(fill = alpha(c("darkorange3","forestgreen"),0.3), color= c("darkorange3","forestgreen"))+
+  ylab("Mean Height (m)")+
   xlab("Forest Type")+
-  scale_fill_brewer(palette="BrBG")
+  theme_classic()+
+  theme(axis.text.x = element_text(color="black"),
+          axis.text.y = element_text(color="black"))
+
+dbh_plot <- ggplot(data=structure_all, aes( x= Forest_Type, y=meanDBH))+
+  geom_boxplot(fill = alpha(c("darkorange3","forestgreen"),0.3), color= c("darkorange3","forestgreen"))+
+  ylab("DBH (cm)")+
+  xlab("Forest Type")+
+  theme_classic()+
+  theme(axis.text.x = element_text(color="black"),
+          axis.text.y = element_text(color="black"))
+
+library(ggpubr)
+
+Structure_plot <- ggarrange(abundance, basal_area,height_plot, dbh_plot, labels = c("a", "b", "c", "d"), common.legend = T)
+
 ```
 
 
@@ -291,4 +466,49 @@ print(bioclim.pca)
 summary(bioclim.pca) 
 
 ```
-edit
+
+social team figure
+```{r}
+observation1 <- seq(1:37)
+tree_part <- c(rep("Fruit", 14),rep("Bark",11), "Wood", rep("Not Mentioned", 11))
+color1 <- c(rep("green",26), rep("orange", 11))
+tree_part_df <- as.data.frame(cbind(observation1, tree_part, color1))
+
+tree_part_df$tree_part <-factor(tree_part_df$tree_part, levels= c("Fruit","Bark",  "Wood", "Not Mentioned"))
+
+tree_part_plot <- ggplot(data=tree_part_df, aes(x=tree_part, fill=color1))+
+  geom_bar(color=c("forestgreen","forestgreen","forestgreen","darkorange3"))+
+  theme_classic()+
+  scale_fill_manual(values = alpha(c("forestgreen","darkorange3"), 0.3))+
+  ylab("Number of Mentions")+
+  xlab("Tree Part")+ 
+  theme(legend.position = "none")+
+  annotate(geom="text", x=1, y=15, label="14", color="forestgreen")+
+  annotate(geom="text", x=2, y=12, label="11", color="forestgreen")+
+  annotate(geom="text", x=3, y=2, label="1", color="forestgreen")+
+  annotate(geom="text", x=4, y=12, label="11", color="darkorange3")
+
+
+observation2 <- seq(1:33)
+use <- c(rep("Food", 9),rep("Medicine",5), "Hygiene","Building", rep("Not Mentioned", 17))
+color2 <- c(rep("green",16), rep("orange", 17))
+use_df <- as.data.frame(cbind(observation2, use, color2))
+
+use_df$use <-factor(use_df$us, levels= c("Food", "Medicine", "Building", "Hygiene", "Not Mentioned"))
+
+use_plot <- ggplot(data=use_df, aes(x=use, fill=color2))+
+  geom_bar(color=c("forestgreen","forestgreen","forestgreen","forestgreen","darkorange3"))+
+  theme_classic()+
+  scale_fill_manual(values = alpha(c("forestgreen","darkorange3"), 0.3))+
+  ylab("Number of Mentions")+
+  xlab("Use")+ 
+  theme(legend.position = "none")+
+  annotate(geom="text", x=1, y=10, label="9", color="forestgreen")+
+  annotate(geom="text", x=2, y=6, label="5", color="forestgreen")+
+  annotate(geom="text", x=3, y=2, label="1", color="forestgreen")+
+  annotate(geom="text", x=4, y=2, label="1", color="forestgreen")+
+  annotate(geom="text", x=5, y=18, label="17", color="darkorange3")
+
+social_plots <- ggarrange(tree_part_plot, use_plot, labels=c("a", "b"))
+```
+
